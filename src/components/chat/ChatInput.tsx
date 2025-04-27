@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { SendIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface ChatInputProps {
   onSendMessage: (content: string) => void;
@@ -17,10 +16,10 @@ export function ChatInput({ onSendMessage, isTyping }: ChatInputProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || isTyping) return;
-    
+
     onSendMessage(message);
     setMessage("");
-    
+
     // Focus textarea after sending
     setTimeout(() => {
       textareaRef.current?.focus();
@@ -38,7 +37,7 @@ export function ChatInput({ onSendMessage, isTyping }: ChatInputProps) {
   useEffect(() => {
     const textarea = textareaRef.current;
     if (!textarea) return;
-    
+
     textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
   }, [message]);
@@ -49,29 +48,25 @@ export function ChatInput({ onSendMessage, isTyping }: ChatInputProps) {
   }, []);
 
   return (
-    <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm border-t">
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-3xl mx-auto p-4 flex items-end gap-2"
-      >
+    <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm border-t ">
+      <form onSubmit={handleSubmit} className="mx-auto gap-5 p-4 flex items-center  container px-0">
         <Textarea
           ref={textareaRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your message..."
-          className="min-h-[60px] max-h-[200px] resize-none pr-14 shadow-sm"
+          className="min-h-[50px] max-h-[200px] resize-none pr-14 shadow-sm"
           disabled={isTyping}
         />
-        <Button 
-          type="submit" 
-          size="icon" 
-          className="absolute right-6 bottom-6"
+        <button
+          type="submit"
+          className="cursor-pointer  shadow drop-shadow-2xl border p-2.5 rounded hover:bg-accent transition-colors duration-200 ease-in-out"
           disabled={!message.trim() || isTyping}
         >
-          <SendIcon className="h-5 w-5" />
+          <SendIcon className="h-6 w-6" />
           <span className="sr-only">Send message</span>
-        </Button>
+        </button>
       </form>
     </div>
   );

@@ -1,16 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { PlusCircle, Settings, Sun, Moon } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ChatHeaderProps {
   selectedModel: string;
@@ -41,7 +35,7 @@ export function ChatHeader({
 
   return (
     <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10">
-      <div className="flex items-center justify-between p-4 max-w-5xl mx-auto">
+      <div className="flex items-center justify-between py-4 mx-auto container">
         <div className="flex items-center space-x-4">
           <Select value={selectedModel} onValueChange={onModelChange}>
             <SelectTrigger className="w-[180px]">
@@ -54,10 +48,10 @@ export function ChatHeader({
               <SelectItem value="llama-3">Llama 3</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <div className="flex items-center space-x-2">
-            <Select 
-              value={selectedContext || "no-context"} 
+            <Select
+              value={selectedContext || "no-context"}
               onValueChange={(value) => onContextChange(value === "no-context" ? null : value)}
             >
               <SelectTrigger className="w-[180px]">
@@ -72,10 +66,10 @@ export function ChatHeader({
                 ))}
               </SelectContent>
             </Select>
-            
-            <Button 
-              variant="ghost" 
-              size="icon" 
+
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onAddContextClick}
               className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
             >
@@ -84,29 +78,16 @@ export function ChatHeader({
             </Button>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
           >
-            {theme === 'dark' ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             <span className="sr-only">Toggle theme</span>
-          </Button>
-          
-          <Button 
-            variant="ghost" 
-            size="icon"
-            className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
-          >
-            <Settings className="h-5 w-5" />
-            <span className="sr-only">Settings</span>
           </Button>
         </div>
       </div>

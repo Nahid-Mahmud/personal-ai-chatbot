@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { ChatHeader } from "./ChatHeader";
 import { ChatMessages } from "./ChatMessages";
-import { ChatInput } from "./ChatInput";
+
 import { Message } from "@/types/chat";
 import { AddContextModal } from "./AddContextModal";
+import { ChatInput } from "./ChatInput";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
@@ -60,7 +61,7 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden ">
       <ChatHeader
         selectedModel={selectedModel}
         onModelChange={setSelectedModel}
@@ -69,9 +70,13 @@ export function ChatInterface() {
         onContextChange={setSelectedContext}
         onAddContextClick={() => setIsAddContextModalOpen(true)}
       />
-      <div className="flex-1 overflow-hidden">
-        <ChatMessages messages={messages} isTyping={isTyping} />
+
+      <div className="flex-1 flex h-full overflow-hidden ">
+        <div className=" flex-1 ">
+          <ChatMessages messages={messages} isTyping={isTyping} />
+        </div>
       </div>
+
       <ChatInput onSendMessage={handleSendMessage} isTyping={isTyping} />
       <AddContextModal
         isOpen={isAddContextModalOpen}

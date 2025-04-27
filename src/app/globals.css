@@ -112,6 +112,14 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility container {
+  @apply mx-auto px-4 sm:px-6 lg:px-5;
+
+  @media (width>= 1440px) {
+    max-width: 1440px;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
