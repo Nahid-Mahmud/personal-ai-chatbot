@@ -18,7 +18,7 @@ export function ChatInterface() {
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
-  const [selectedModel, setSelectedModel] = useState("gpt-4");
+
   const [selectedContext, setSelectedContext] = useState<string | null>(null);
   const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
   const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
@@ -63,8 +63,6 @@ export function ChatInterface() {
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
       <ChatHeader
-        selectedModel={selectedModel}
-        onModelChange={setSelectedModel}
         selectedContext={selectedContext}
         contexts={contexts}
         onContextChange={setSelectedContext}

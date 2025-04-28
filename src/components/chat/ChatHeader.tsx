@@ -7,24 +7,17 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 interface ChatHeaderProps {
-  selectedModel: string;
-  onModelChange: (model: string) => void;
   selectedContext: string | null;
   contexts: { id: string; title: string; content: string }[];
   onContextChange: (contextId: string | null) => void;
   onAddContextClick: () => void;
 }
 
-export function ChatHeader({
-  selectedModel,
-  onModelChange,
-  selectedContext,
-  contexts,
-  onContextChange,
-  onAddContextClick,
-}: ChatHeaderProps) {
-  const { theme, setTheme } = useTheme();
+export function ChatHeader({ selectedContext, contexts, onContextChange, onAddContextClick }: ChatHeaderProps) {
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const [selectedModel, setSelectedModel] = useState("gpt-4");
 
   // Avoid hydration mismatch
   useEffect(() => {
@@ -37,7 +30,7 @@ export function ChatHeader({
     <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10">
       <div className="flex items-center justify-between py-4 mx-auto container">
         <div className="flex items-center space-x-4">
-          <Select value={selectedModel} onValueChange={onModelChange}>
+          <Select value={selectedModel} onValueChange={setSelectedModel}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
@@ -83,10 +76,10 @@ export function ChatHeader({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
           >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             <span className="sr-only">Toggle theme</span>
           </Button>
         </div>
