@@ -28,8 +28,8 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
 
   return (
     <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10">
-      <div className="flex items-center justify-between py-4 mx-auto container">
-        <div className="flex items-center space-x-4">
+      <div className="flex md:items-center md:justify-between py-4 container">
+        <div className="flex ml-10 flex-col gap-5 md:flex-row md:items-center ">
           <Select value={selectedModel} onValueChange={setSelectedModel}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select model" />
@@ -64,23 +64,30 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
               variant="ghost"
               size="icon"
               onClick={onAddContextClick}
-              className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
+              className="h-9 w-9 hidden md:inline-flex rounded-full transition-colors hover:bg-accent"
             >
               <PlusCircle className="h-5 w-5" />
-              <span className="sr-only">Add context</span>
             </Button>
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col md:items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className="h-9 w-9 rounded-full transition-colors hover:bg-accent"
+            className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
           >
             {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             <span className="sr-only">Toggle theme</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onAddContextClick}
+            className="h-9 w-9 md:hidden rounded-full transition-colors hover:bg-accent"
+          >
+            <PlusCircle className="h-5 w-5" />
           </Button>
         </div>
       </div>

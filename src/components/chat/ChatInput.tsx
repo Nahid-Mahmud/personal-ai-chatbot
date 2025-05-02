@@ -49,23 +49,22 @@ export function ChatInput({ onSendMessage, isTyping }: ChatInputProps) {
 
   return (
     <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm border-t ">
-      <form onSubmit={handleSubmit} className="mx-auto gap-5 p-4 flex items-center  container px-0">
+      <form onSubmit={handleSubmit} className="mx-auto relative gap-5 p-4 flex items-center  container px-0">
         <Textarea
           ref={textareaRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
-          className="min-h-[50px] max-h-[200px] resize-none pr-14 shadow-sm"
+          placeholder="Ask me anything..."
+          className="max-h-[50px]  resize-none pr-14 shadow-sm placeholder:text-xl dark:bg-[#0A0A0A] dark:text-white dark:placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-opacity-50 transition-all duration-200 ease-in-out"
           disabled={isTyping}
         />
         <button
           type="submit"
-          className="cursor-pointer  shadow drop-shadow-2xl border p-2.5 rounded hover:bg-accent transition-colors duration-200 ease-in-out"
+          className="cursor-pointer absolute right-5  shadow drop-shadow-2xl border p-2.5 rounded hover:bg-accent transition-colors duration-200 ease-in-out"
           disabled={!message.trim() || isTyping}
         >
           <SendIcon className="h-6 w-6" />
-          <span className="sr-only">Send message</span>
         </button>
       </form>
     </div>

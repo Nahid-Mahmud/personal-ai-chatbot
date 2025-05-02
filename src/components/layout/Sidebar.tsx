@@ -1,12 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ChevronUp, Home, MessageCircle, Plus } from "lucide-react";
-import { useState } from "react";
+import { Home, MessageCircle, Plus } from "lucide-react";
+// import { useState } from "react";
 import NavItem from "./NavItem";
 
 export default function Sidebar() {
-  const [showChats, setShowChats] = useState(false);
+  // const [showChats, setShowChats] = useState(false);
 
   const recentChats = [
     "Project AI Bot",
@@ -23,19 +23,6 @@ export default function Sidebar() {
     "Book Recommendations",
     "Music Playlist",
     "Movie Suggestions",
-    "Personal Finance",
-    "Health Tracker",
-    "Study Buddy",
-    "Creative Writing",
-    "Art Inspiration",
-    "Travel Itinerary",
-    "Event Planning",
-    "Social Media Content",
-    "Marketing Strategy",
-    "Customer Support",
-    "Productivity Tips",
-    "Time Management",
-    "Goal Setting",
   ];
 
   return (
@@ -43,7 +30,7 @@ export default function Sidebar() {
       {/* Top + Middle */}
       <div className="flex flex-col flex-grow p-4 overflow-hidden">
         {/* Logo */}
-        <div className="text-2xl font-bold mb-6 text-center tracking-tight">🤖 AI Chat</div>
+        <div className="text-2xl font-bold mb-6 text-center tracking-tight">AIO Chat Bot</div>
 
         {/* Navigation */}
         <nav className="space-y-2">
@@ -51,21 +38,21 @@ export default function Sidebar() {
 
           <div>
             <button
-              onClick={() => setShowChats(!showChats)}
+              // onClick={() => setShowChats(!showChats)}
               className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             >
               <div className="flex items-center gap-3">
                 <MessageCircle size={20} />
                 <span className="text-sm font-medium">Chats</span>
               </div>
-              {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              {/* {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />} */}
             </button>
           </div>
         </nav>
 
         {/* Animated chat list (scrollable, bounded height) */}
         <AnimatePresence>
-          {showChats && (
+          {
             <motion.div
               key="chatList"
               initial={{ opacity: 0 }}
@@ -85,13 +72,13 @@ export default function Sidebar() {
                 ))}
               </div>
             </motion.div>
-          )}
+          }
         </AnimatePresence>
       </div>
 
       {/* Footer - always visible */}
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <button className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 transition rounded-xl py-2 px-4 font-semibold text-white">
+        <button className="w-full flex items-center justify-center gap-2 transition rounded-xl py-2 px-4 font-semibold border">
           <Plus size={18} />
           New Chat
         </button>
