@@ -2,9 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { setModel } from "@/redux/features/chatModelSlice";
+import { RootState } from "@/redux/store";
 import { Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface ChatHeaderProps {
   selectedContext: string | null;
@@ -43,29 +46,24 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
 
   const [selectedModel, setSelectedModel] = useState<string>("");
 
+  // get existing from redux store
+  const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
+
+  const dispatch = useDispatch();
+
   // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    // check local storage for selected model
-    const storedModel = localStorage.getItem("selectedModel");
-    if (storedModel) {
-      setSelectedModel(storedModel);
-    } else {
-      // set default model to first one
+    if (!selectedModelFromReduxStore) {
       setSelectedModel(aiModels[0].model);
+      dispatch(setModel({ model: aiModels[0].model }));
+    } else {
+      dispatch(setModel({ model: selectedModel }));
     }
-  }, []);
-
-  // Save selected model to local storage
-
-  useEffect(() => {
-    if (selectedModel) {
-      localStorage.setItem("selectedModel", selectedModel);
-    }
-  }, [selectedModel]);
+  }, [selectedModelFromReduxStore, dispatch, selectedModel]);
 
   if (!mounted) return null;
 
