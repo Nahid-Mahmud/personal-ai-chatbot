@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 interface ChatHeaderProps {
-  onContextChange: (contextId: string | null) => void;
   onAddContextClick: () => void;
 }
 
@@ -39,7 +38,7 @@ const aiModels: AIModel[] = [
   },
 ];
 
-export function ChatHeader({ onContextChange, onAddContextClick }: ChatHeaderProps) {
+export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -74,9 +73,6 @@ export function ChatHeader({ onContextChange, onAddContextClick }: ChatHeaderPro
 
   const handleContextChange = (contextId: string) => {
     dispatch(selectContext({ id: contextId }));
-    if (onContextChange) {
-      onContextChange(contextId);
-    }
   };
 
   if (!mounted) return null;

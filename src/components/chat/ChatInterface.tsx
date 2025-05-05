@@ -108,7 +108,7 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
-      <ChatHeader onContextChange={setSelectedContext} onAddContextClick={() => setIsAddContextModalOpen(true)} />
+      <ChatHeader onAddContextClick={() => setIsAddContextModalOpen(true)} />
 
       <div className="flex-1 flex h-full overflow-hidden ">
         <div className=" flex-1 ">

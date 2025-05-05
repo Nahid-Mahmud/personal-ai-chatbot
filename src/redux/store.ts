@@ -18,7 +18,7 @@ export default noopStorage;
 const persistConfig = {
   key: "root",
   storage: typeof window !== "undefined" && window.localStorage ? storage : noopStorage,
-  whitelist: ["chatModel", "chatContext"],
+  whitelist: ["model", "context"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
