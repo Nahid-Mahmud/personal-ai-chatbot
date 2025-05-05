@@ -48,7 +48,7 @@ export function ChatInput({ onSendMessage, isTyping }: ChatInputProps) {
   }, []);
 
   return (
-    <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm border-t ">
+    <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm border-t px-5 ">
       <form onSubmit={handleSubmit} className="mx-auto relative gap-5 p-4 flex items-center  container px-0">
         <Textarea
           ref={textareaRef}

@@ -13,16 +13,59 @@ interface ChatHeaderProps {
   onAddContextClick: () => void;
 }
 
+interface AIModel {
+  id: number;
+  name: string;
+  model: string;
+}
+
+const aiModels: AIModel[] = [
+  {
+    id: 1,
+    name: "Meta: Llama 3.2 3B Instruct",
+    model: "meta-llama/llama-3.2-3b-instruct:free",
+  },
+  {
+    id: 2,
+    name: "Google: LearnLM 1.5 Pro Experimental",
+    model: "google/learnlm-1.5-pro-experimental:free",
+  },
+  {
+    id: 3,
+    name: "Qwen2.5 7B Instruct",
+    model: "qwen/qwen-2.5-7b-instruct:free",
+  },
+];
+
 export function ChatHeader({ selectedContext, contexts, onContextChange, onAddContextClick }: ChatHeaderProps) {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const [selectedModel, setSelectedModel] = useState("gpt-4");
+  const [selectedModel, setSelectedModel] = useState<string>("");
 
   // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    // check local storage for selected model
+    const storedModel = localStorage.getItem("selectedModel");
+    if (storedModel) {
+      setSelectedModel(storedModel);
+    } else {
+      // set default model to first one
+      setSelectedModel(aiModels[0].model);
+    }
+  }, []);
+
+  // Save selected model to local storage
+
+  useEffect(() => {
+    if (selectedModel) {
+      localStorage.setItem("selectedModel", selectedModel);
+    }
+  }, [selectedModel]);
 
   if (!mounted) return null;
 
@@ -35,10 +78,11 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="gpt-3.5">GPT-3.5</SelectItem>
-              <SelectItem value="gpt-4">GPT-4</SelectItem>
-              <SelectItem value="claude-3">Claude 3</SelectItem>
-              <SelectItem value="llama-3">Llama 3</SelectItem>
+              {aiModels.map((model) => (
+                <SelectItem key={model.id} value={model.model}>
+                  {model.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
 
