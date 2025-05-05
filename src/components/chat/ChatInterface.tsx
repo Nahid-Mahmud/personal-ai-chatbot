@@ -15,7 +15,7 @@ export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      role: "assistant",
+      role: "system",
       content: "Hello! How can I assist you today?",
       timestamp: new Date(),
     },
@@ -45,10 +45,10 @@ export function ChatInterface() {
     try {
       // Format messages for API call
       const apiMessages = messages
-        .filter((m) => m.role === "user" || m.role === "assistant")
-        .map((m) => ({
-          role: m.role,
-          content: m.content,
+        .filter((message) => message.role === "user")
+        .map((message) => ({
+          role: message.role,
+          content: message.content,
         }));
 
       // Add context if selected
@@ -73,7 +73,7 @@ export function ChatInterface() {
 
       const assistantMessage: Message = {
         id: Date.now().toString(),
-        role: "assistant",
+        role: "system",
         content: responseContent,
         timestamp: new Date(),
       };
@@ -83,7 +83,7 @@ export function ChatInterface() {
       // Handle error
       const errorMessage: Message = {
         id: Date.now().toString(),
-        role: "assistant",
+        role: "system",
         content: "Sorry, I encountered an error. Please try again later.",
         timestamp: new Date(),
       };

@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Home, MessageCircle, Plus } from "lucide-react";
 // import { useState } from "react";
 import NavItem from "./NavItem";
@@ -8,22 +7,22 @@ import NavItem from "./NavItem";
 export default function Sidebar() {
   // const [showChats, setShowChats] = useState(false);
 
-  const recentChats = [
-    "Project AI Bot",
-    "Meeting Notes",
-    "Code Helper",
-    "Job Prep",
-    "GPT-4 Playground",
-    "Client Feedback",
-    "Daily Summary",
-    "Recipe Generator",
-    "Travel Planner",
-    "Workout Buddy",
-    "Language Tutor",
-    "Book Recommendations",
-    "Music Playlist",
-    "Movie Suggestions",
-  ];
+  // const recentChats = [
+  //   "Project AI Bot",
+  //   "Meeting Notes",
+  //   "Code Helper",
+  //   "Job Prep",
+  //   "GPT-4 Playground",
+  //   "Client Feedback",
+  //   "Daily Summary",
+  //   "Recipe Generator",
+  //   "Travel Planner",
+  //   "Workout Buddy",
+  //   "Language Tutor",
+  //   "Book Recommendations",
+  //   "Music Playlist",
+  //   "Movie Suggestions",
+  // ];
 
   return (
     <div className="h-screen w-64 flex flex-col bg-white dark:bg-[#0A0A0A] text-black dark:text-white border-r border-gray-100 dark:border-gray-700 shadow-lg">
@@ -34,24 +33,24 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="space-y-2">
-          <NavItem icon={<Home size={20} />} label="Home" />
-
+          <NavItem icon={<Home size={20} />} label="Home" url="/" />
+          <NavItem icon={<MessageCircle size={20} />} label="Contexts" url="/contexts" />
           <div>
             <button
               // onClick={() => setShowChats(!showChats)}
               className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             >
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <MessageCircle size={20} />
                 <span className="text-sm font-medium">Chats</span>
-              </div>
+              </div> */}
               {/* {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />} */}
             </button>
           </div>
         </nav>
 
         {/* Animated chat list (scrollable, bounded height) */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {
             <motion.div
               key="chatList"
@@ -73,7 +72,7 @@ export default function Sidebar() {
               </div>
             </motion.div>
           }
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
 
       {/* Footer - always visible */}
