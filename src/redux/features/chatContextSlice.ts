@@ -6,15 +6,27 @@ interface ChatContextState {
   content: string;
 }
 
+// Define the initial state of the chat context slice
+const initialState: ChatContextState[] = [
+  {
+    id: Date.now().toString(),
+    title: "Default Context",
+    content: "No specific context provided.",
+  },
+];
+
 const chatContextSlice = createSlice({
   name: "chatContext",
   initialState: {
-    contexts: [] as ChatContextState[],
+    contexts: initialState,
     selectedContext: null as string | null,
   },
   reducers: {
     addContext: (state, action) => {
-      const { id, title, content } = action.payload;
+      const { title, content } = action.payload;
+
+      const id = Date.now().toString();
+
       state.contexts.push({ id, title, content });
     },
     removeContext: (state, action) => {
@@ -27,6 +39,13 @@ const chatContextSlice = createSlice({
     selectContext: (state, action) => {
       const { id } = action.payload;
       state.selectedContext = id;
+    },
+    editContext: (state, action) => {
+      const { id, title, content } = action.payload;
+      const contextIndex = state.contexts.findIndex((context) => context.id === id);
+      if (contextIndex !== -1) {
+        state.contexts[contextIndex] = { ...state.contexts[contextIndex], title, content };
+      }
     },
   },
 });

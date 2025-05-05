@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { selectContext } from "@/redux/features/chatContextSlice";
 import { setModel } from "@/redux/features/chatModelSlice";
 import { RootState } from "@/redux/store";
 import { Moon, PlusCircle, Sun } from "lucide-react";
@@ -10,8 +11,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 interface ChatHeaderProps {
-  selectedContext: string | null;
-  contexts: { id: string; title: string; content: string }[];
   onContextChange: (contextId: string | null) => void;
   onAddContextClick: () => void;
 }
@@ -40,7 +39,7 @@ const aiModels: AIModel[] = [
   },
 ];
 
-export function ChatHeader({ selectedContext, contexts, onContextChange, onAddContextClick }: ChatHeaderProps) {
+export function ChatHeader({ onContextChange, onAddContextClick }: ChatHeaderProps) {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -48,6 +47,9 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
 
   // get existing from redux store
   const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
+  const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
+  const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
+  console.log(selectedContextFromReduxStore);
 
   const dispatch = useDispatch();
 
@@ -64,6 +66,20 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
       dispatch(setModel({ model: selectedModel }));
     }
   }, [selectedModelFromReduxStore, dispatch, selectedModel]);
+
+  useEffect(() => {
+    // Only set the default context if no context is selected AND we have contexts available
+    if (!selectedContextFromReduxStore && contextsFormReduxStore && contextsFormReduxStore.length > 0) {
+      dispatch(selectContext({ id: contextsFormReduxStore[0]?.id }));
+    }
+  }, [contextsFormReduxStore, selectedContextFromReduxStore, dispatch]);
+
+  const handleContextChange = (contextId: string) => {
+    dispatch(selectContext({ id: contextId }));
+    if (onContextChange) {
+      onContextChange(contextId);
+    }
+  };
 
   if (!mounted) return null;
 
@@ -85,16 +101,12 @@ export function ChatHeader({ selectedContext, contexts, onContextChange, onAddCo
           </Select>
 
           <div className="flex items-center space-x-2">
-            <Select
-              value={selectedContext || "no-context"}
-              onValueChange={(value) => onContextChange(value === "no-context" ? null : value)}
-            >
+            <Select value={selectedContextFromReduxStore || ""} onValueChange={handleContextChange}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select context" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="no-context">No context</SelectItem>
-                {contexts.map((context) => (
+                {contextsFormReduxStore.map((context: { id: string; title: string; content: string }) => (
                   <SelectItem key={context.id} value={context.id}>
                     {context.title}
                   </SelectItem>
