@@ -53,7 +53,6 @@ export function ChatHeader({ onContextChange, onAddContextClick }: ChatHeaderPro
 
   const dispatch = useDispatch();
 
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -68,7 +67,6 @@ export function ChatHeader({ onContextChange, onAddContextClick }: ChatHeaderPro
   }, [selectedModelFromReduxStore, dispatch, selectedModel]);
 
   useEffect(() => {
-    // Only set the default context if no context is selected AND we have contexts available
     if (!selectedContextFromReduxStore && contextsFormReduxStore && contextsFormReduxStore.length > 0) {
       dispatch(selectContext({ id: contextsFormReduxStore[0]?.id }));
     }
