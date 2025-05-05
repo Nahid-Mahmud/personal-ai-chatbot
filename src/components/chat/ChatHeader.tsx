@@ -60,8 +60,6 @@ export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
     if (!selectedModelFromReduxStore) {
       setSelectedModel(aiModels[0].model);
       dispatch(setModel({ model: aiModels[0].model }));
-    } else {
-      dispatch(setModel({ model: selectedModel }));
     }
   }, [selectedModelFromReduxStore, dispatch, selectedModel]);
 
@@ -75,13 +73,18 @@ export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
     dispatch(selectContext({ id: contextId }));
   };
 
+  const handleModelChange = (model: string) => {
+    setSelectedModel(model);
+    dispatch(setModel({ model }));
+  };
+
   if (!mounted) return null;
 
   return (
     <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10">
       <div className="flex md:items-center md:justify-between py-4 container">
         <div className="flex ml-10 flex-col gap-5 md:flex-row md:items-center ">
-          <Select value={selectedModel} onValueChange={setSelectedModel}>
+          <Select value={selectedModelFromReduxStore || ""} onValueChange={handleModelChange}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select model" />
             </SelectTrigger>

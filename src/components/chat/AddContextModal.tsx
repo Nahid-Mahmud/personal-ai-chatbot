@@ -12,10 +12,9 @@ import { addContext } from "@/redux/features/chatContextSlice";
 interface AddContextModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddContext: (title: string, content: string) => void;
 }
 
-export function AddContextModal({ isOpen, onClose, onAddContext }: AddContextModalProps) {
+export function AddContextModal({ isOpen, onClose }: AddContextModalProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -35,10 +34,11 @@ export function AddContextModal({ isOpen, onClose, onAddContext }: AddContextMod
       return;
     }
 
+    // onAddContext(title, content);
     dispatch(addContext({ title, content }));
 
-    onAddContext(title, content);
     resetForm();
+    onClose();
   };
 
   const resetForm = () => {
@@ -81,7 +81,7 @@ export function AddContextModal({ isOpen, onClose, onAddContext }: AddContextMod
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Enter the context information..."
-                className="min-h-[150px] max-h-[40vh] w-full"
+                className="min-h-[150px] w-full"
               />
             </div>
           </div>

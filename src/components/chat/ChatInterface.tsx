@@ -22,9 +22,12 @@ export function ChatInterface() {
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const [selectedContext, setSelectedContext] = useState<string | null>(null);
-  const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
+  // const [selectedContext, setSelectedContext] = useState<string | null>(null);
+  // const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
   const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
+
+  const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
+  const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
 
   // Get selected model from Redux
   const selectedModel = useSelector((state: RootState) => state.model.model);
@@ -52,8 +55,10 @@ export function ChatInterface() {
         }));
 
       // Add context if selected
-      if (selectedContext) {
-        const contextData = contexts.find((ctx) => ctx.id === selectedContext);
+      if (selectedContextFromReduxStore) {
+        const contextData = contextsFormReduxStore.find(
+          (ctx: { id: string; title: string; content: string }) => ctx.id === selectedContextFromReduxStore
+        );
         if (contextData) {
           apiMessages.unshift({
             role: "system" as const,
@@ -95,16 +100,16 @@ export function ChatInterface() {
     }
   };
 
-  const handleAddContext = (title: string, content: string) => {
-    const newContext = {
-      id: Date.now().toString(),
-      title,
-      content,
-    };
-    setContexts((prev) => [...prev, newContext]);
-    setSelectedContext(newContext.id);
-    setIsAddContextModalOpen(false);
-  };
+  // const handleAddContext = (title: string, content: string) => {
+  //   const newContext = {
+  //     id: Date.now().toString(),
+  //     title,
+  //     content,
+  //   };
+  //   setContexts((prev) => [...prev, newContext]);
+  //   setSelectedContext(newContext.id);
+  //   setIsAddContextModalOpen(false);
+  // };
 
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
@@ -117,11 +122,7 @@ export function ChatInterface() {
       </div>
 
       <ChatInput onSendMessage={handleSendMessage} isTyping={isTyping} />
-      <AddContextModal
-        isOpen={isAddContextModalOpen}
-        onClose={() => setIsAddContextModalOpen(false)}
-        onAddContext={handleAddContext}
-      />
+      <AddContextModal isOpen={isAddContextModalOpen} onClose={() => setIsAddContextModalOpen(false)} />
     </div>
   );
 }
