@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { ChatHeader } from "./ChatHeader";
 import { ChatMessages } from "./ChatMessages";
-
 import { Message } from "@/types/chat";
 import { AddContextModal } from "./AddContextModal";
 import { ChatInput } from "./ChatInput";
+
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { callOpenRouter } from "@/utils/callOpenRouter";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
@@ -23,7 +26,10 @@ export function ChatInterface() {
   const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
   const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
 
-  const handleSendMessage = (content: string) => {
+  // Get selected model from Redux
+  const selectedModel = useSelector((state: RootState) => state.model.model);
+
+  const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
     const userMessage: Message = {
@@ -36,17 +42,57 @@ export function ChatInterface() {
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Format messages for API call
+      const apiMessages = messages
+        .filter((m) => m.role === "user" || m.role === "assistant")
+        .map((m) => ({
+          role: m.role,
+          content: m.content,
+        }));
+
+      // Add context if selected
+      if (selectedContext) {
+        const contextData = contexts.find((ctx) => ctx.id === selectedContext);
+        if (contextData) {
+          apiMessages.unshift({
+            role: "system" as const,
+            content: `Context information: ${contextData.content}`,
+          });
+        }
+      }
+
+      // Add the newest user message
+      apiMessages.push({
+        role: "user",
+        content,
+      });
+
+      // Call API
+      const responseContent = await callOpenRouter(apiMessages, selectedModel);
+
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: Date.now().toString(),
         role: "assistant",
-        content: `This is a simulated response to "${content}". In a real implementation, this would come from the AI model.`,
+        content: responseContent,
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, assistantMessage]);
+    } catch (error) {
+      // Handle error
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "Sorry, I encountered an error. Please try again later.",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, errorMessage]);
+      console.error("Error getting response:", error);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleAddContext = (title: string, content: string) => {
