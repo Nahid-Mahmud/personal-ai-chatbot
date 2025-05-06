@@ -33,7 +33,7 @@ export default function Sidebar() {
       {/* Top + Middle */}
       <div className="flex flex-col flex-grow p-4 overflow-hidden">
         {/* Logo */}
-        <div className="text-2xl font-bold mb-6 text-center tracking-tight">AIO Chat Bot</div>
+        <div className="text-2xl font-bold mb-6 text-center tracking-tight">AIO Chat</div>
 
         {/* Navigation */}
         <nav className="space-y-2">
