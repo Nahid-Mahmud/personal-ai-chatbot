@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch } from "react-redux";
 import { addContext } from "@/redux/features/chatContextSlice";
+import { toast } from "react-toastify";
 
 interface AddContextModalProps {
   isOpen: boolean;
@@ -36,6 +37,7 @@ export function AddContextModal({ isOpen, onClose }: AddContextModalProps) {
 
     // onAddContext(title, content);
     dispatch(addContext({ title, content }));
+    toast.success("Context added successfully!");
 
     resetForm();
     onClose();
@@ -87,10 +89,12 @@ export function AddContextModal({ isOpen, onClose }: AddContextModalProps) {
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={handleClose} className="mr-2">
+            <Button type="button" variant="outline" onClick={handleClose} className="mr-2 cursor-pointer">
               Cancel
             </Button>
-            <Button type="submit">Add Context</Button>
+            <Button type="submit" className="cursor-pointer">
+              Add Context
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
