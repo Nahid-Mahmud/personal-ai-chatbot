@@ -1,3 +1,4 @@
+import { ChatHeader } from "@/components/chat/ChatHeader";
 import Sidebar from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -33,7 +34,10 @@ export default function DashboardLayout({
 
           {/* Main Content */}
           <div className="lg:pl-64 overflow-y-hidden">
-            <main className="">{children}</main>
+            <main className="flex flex-col h-screen overflow-hidden ">
+              <ChatHeader />
+              {children}
+            </main>
           </div>
         </div>
       </div>

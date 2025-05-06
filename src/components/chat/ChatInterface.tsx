@@ -2,7 +2,6 @@
 
 import { Message } from "@/types/chat";
 import { useState } from "react";
-import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
 import { ChatMessages } from "./ChatMessages";
 
@@ -111,7 +110,7 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
-      <ChatHeader />
+      {/* <ChatHeader /> */}
 
       <div className="flex-1 flex h-full overflow-hidden ">
         <div className=" flex-1 ">
