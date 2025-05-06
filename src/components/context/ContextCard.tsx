@@ -21,11 +21,13 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
 
   const handleEdit = (id: string) => {
     console.log(id);
+
     setSelectedContext(id);
     setIsEditContextModalOpen(true);
   };
 
   const handleDelete = (id: string) => {
+    if (id === "1") return;
     console.log(id);
     dispatch(removeContext({ id }));
   };
