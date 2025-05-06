@@ -36,7 +36,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         <CardTitle className="text-xl font-medium">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-muted-foreground">{content}</p>
+        <p className="text-muted-foreground">{content?.length > 100 ? `${content.slice(0, 100)}...` : content}</p>
       </CardContent>
 
       <div className="absolute right-3 top-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
