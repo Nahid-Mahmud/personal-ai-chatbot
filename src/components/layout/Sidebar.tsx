@@ -77,7 +77,7 @@ export default function Sidebar() {
 
       {/* Footer - always visible */}
       <div className="p-4 dark:border-gray-700">
-        <button className="w-full flex items-center justify-center gap-2 transition rounded-xl py-2 px-4 font-semibold border">
+        <button className="w-full cursor-pointer flex items-center justify-center gap-2 transition rounded-xl py-2 px-4 font-semibold border">
           <Plus size={18} />
           New Chat
         </button>
