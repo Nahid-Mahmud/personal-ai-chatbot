@@ -50,7 +50,6 @@ export function ChatHeader() {
   const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
   const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
-  console.log(selectedContextFromReduxStore);
 
   const dispatch = useDispatch();
 

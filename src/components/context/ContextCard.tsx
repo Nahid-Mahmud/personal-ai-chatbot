@@ -3,6 +3,8 @@
 import { Edit, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { removeContext } from "@/redux/features/chatContextSlice";
 
 interface ContextCardProps {
   id: string;
@@ -10,8 +12,18 @@ interface ContextCardProps {
   content: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ContextCard = ({ id, title, content }: ContextCardProps) => {
+  const dispatch = useDispatch();
+
+  const handleEdit = (id: string) => {
+    console.log(id);
+  };
+
+  const handleDelete = (id: string) => {
+    console.log(id);
+    dispatch(removeContext({ id }));
+  };
+
   return (
     <Card className="relative overflow-hidden transition-all duration-300 hover:shadow-md group">
       <CardHeader className="pb-2">
@@ -25,6 +37,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         <Button
           variant="ghost"
           size="icon"
+          onClick={() => handleEdit(id)}
           className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
           aria-label="Edit"
         >
@@ -33,6 +46,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         <Button
           variant="ghost"
           size="icon"
+          onClick={() => handleDelete(id)}
           className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground"
           aria-label="Delete"
         >
