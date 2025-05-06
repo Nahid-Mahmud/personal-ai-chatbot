@@ -37,6 +37,36 @@ const aiModels: AIModel[] = [
     name: "Qwen2.5 7B Instruct",
     model: "qwen/qwen-2.5-7b-instruct:free",
   },
+  {
+    id: 4,
+    name: "DeepSeek: R1 Distill Llama 70B",
+    model: "deepseek/deepseek-r1-distill-llama-70b:free",
+  },
+  {
+    id: 5,
+    name: "Qwen: Qwen3 0.6B",
+    model: "qwen/qwen3-0.6b-04-28:free",
+  },
+  // {
+  //   id: 6,
+  //   name: "",
+  //   model: "",
+  // },
+  // {
+  //   id: 7,
+  //   name: "",
+  //   model: "",
+  // },
+  // {
+  //   id: 8,
+  //   name: "",
+  //   model: "",
+  // },
+  // {
+  //   id: 9,
+  //   name: "",
+  //   model: "",
+  // },
 ];
 
 export function ChatHeader() {

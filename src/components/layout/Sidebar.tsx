@@ -6,9 +6,13 @@ import { HiOutlineLightningBolt } from "react-icons/hi";
 import NavItem from "./NavItem";
 import { useDispatch } from "react-redux";
 import { resetChat } from "@/redux/features/chatSlice";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
+
+  const pathname = usePathname();
+
   // const [showChats, setShowChats] = useState(false);
 
   // const recentChats = [
@@ -81,15 +85,17 @@ export default function Sidebar() {
 
       {/* Footer - always visible */}
       <div className="p-4 dark:border-gray-700">
-        <button
-          onClick={() => {
-            dispatch(resetChat());
-          }}
-          className="w-full cursor-pointer flex items-center justify-center gap-2 transition rounded-xl py-2 px-4 font-semibold border"
-        >
-          <Plus size={18} />
-          New Chat
-        </button>
+        {pathname === "/" && (
+          <button
+            onClick={() => {
+              dispatch(resetChat());
+            }}
+            className="w-full cursor-pointer flex items-center justify-center gap-2 transition rounded-xl py-2 px-4 font-semibold border"
+          >
+            <Plus size={18} />
+            New Chat
+          </button>
+        )}
       </div>
     </div>
   );
