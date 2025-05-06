@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 function Contexts() {
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
-
+  
   // console.log(contextsFormReduxStore);
 
   return (

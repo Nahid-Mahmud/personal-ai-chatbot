@@ -9,7 +9,7 @@ interface ChatContextState {
 // Define the initial state of the chat context slice
 const initialState: ChatContextState[] = [
   {
-    id: Date.now().toString(),
+    id: "1",
     title: "Default Context",
     content: "No specific context provided.",
   },
@@ -50,5 +50,5 @@ const chatContextSlice = createSlice({
   },
 });
 
-export const { addContext, removeContext, selectContext } = chatContextSlice.actions;
+export const { addContext, removeContext, selectContext, editContext } = chatContextSlice.actions;
 export default chatContextSlice.reducer;

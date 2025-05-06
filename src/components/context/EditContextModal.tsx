@@ -1,23 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useDispatch } from "react-redux";
-import { addContext } from "@/redux/features/chatContextSlice";
+import { editContext } from "@/redux/features/chatContextSlice";
+import { RootState } from "@/redux/store";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface EditContextModalProps {
   isOpen: boolean;
   onClose: () => void;
-  context: { id: string; title: string; content: string };
+  contextId: string | null;
 }
 
-export function EditContextModal({ isOpen, onClose, context }: EditContextModalProps) {
-  const [title, setTitle] = useState(context?.title);
-  const [content, setContent] = useState(context?.content);
+export function EditContextModal({ isOpen, onClose, contextId }: EditContextModalProps) {
+  const allContexts = useSelector((state: RootState) => state?.context?.contexts);
+  const context = allContexts?.find(
+    (context: { id: string; title: string; content: string }) => context?.id === contextId
+  );
+
+  //   console.log(allContexts);
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
@@ -36,7 +44,7 @@ export function EditContextModal({ isOpen, onClose, context }: EditContextModalP
     }
 
     // onAddContext(title, content);
-    dispatch(addContext({ title, content }));
+    dispatch(editContext({ id: context?.id, title, content }));
 
     resetForm();
     onClose();
@@ -52,6 +60,13 @@ export function EditContextModal({ isOpen, onClose, context }: EditContextModalP
     resetForm();
     onClose();
   };
+
+  useEffect(() => {
+    if (context) {
+      setTitle(context?.title);
+      setContent(context?.content);
+    }
+  }, [context, isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
