@@ -8,6 +8,7 @@ import { removeContext } from "@/redux/features/chatContextSlice";
 import { EditContextModal } from "./EditContextModal";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 
 interface ContextCardProps {
   id: string;
@@ -17,6 +18,7 @@ interface ContextCardProps {
 
 const ContextCard = ({ id, title, content }: ContextCardProps) => {
   const [isEditContextModalOpen, setIsEditContextModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedContext, setSelectedContext] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -31,13 +33,21 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
     setIsEditContextModalOpen(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDeleteClick = (id: string) => {
     if (id === "1") {
       toast.error("Default context cannot be deleted.");
       return;
     }
-    // console.log(id);
-    dispatch(removeContext({ id }));
+
+    setSelectedContext(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedContext) {
+      dispatch(removeContext({ id: selectedContext }));
+      toast.success("Context deleted successfully.");
+    }
   };
 
   return (
@@ -62,7 +72,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => handleDelete(id)}
+          onClick={() => handleDeleteClick(id)}
           className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground cursor-pointer"
           aria-label="Delete"
         >
@@ -73,6 +83,12 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         contextId={selectedContext}
         isOpen={isEditContextModalOpen}
         onClose={() => setIsEditContextModalOpen(false)}
+      />
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title={title}
       />
     </Card>
   );
