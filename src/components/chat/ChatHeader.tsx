@@ -9,7 +9,7 @@ import { Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddContextModal } from "./AddContextModal";
+import { AddContextModal } from "../context/AddContextModal";
 
 // interface ChatHeaderProps {
 //   // onAddContextClick: () => void;
@@ -50,7 +50,6 @@ export function ChatHeader() {
   const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
   const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
-  console.log(selectedContextFromReduxStore);
 
   const dispatch = useDispatch();
 

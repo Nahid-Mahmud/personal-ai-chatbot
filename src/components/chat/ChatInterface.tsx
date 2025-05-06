@@ -2,32 +2,22 @@
 
 import { Message } from "@/types/chat";
 import { useState } from "react";
-import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
 import { ChatMessages } from "./ChatMessages";
 
 import { RootState } from "@/redux/store";
 import { callOpenRouter } from "@/utils/callOpenRouter";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addMessage } from "@/redux/features/chatSlice";
 
 export function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "system",
-      content: "Hello! How can I assist you today?",
-      timestamp: new Date(),
-    },
-  ]);
+  const dispatch = useDispatch();
   const [isTyping, setIsTyping] = useState(false);
 
-  // const [selectedContext, setSelectedContext] = useState<string | null>(null);
-  // const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
-
+  // Get messages from Redux store
+  const messages = useSelector((state: RootState) => state.chat.messages);
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
   const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
-
-  // Get selected model from Redux
   const selectedModel = useSelector((state: RootState) => state.model.model);
 
   const handleSendMessage = async (content: string) => {
@@ -40,14 +30,14 @@ export function ChatInterface() {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    dispatch(addMessage(userMessage));
     setIsTyping(true);
 
     try {
       // Format messages for API call
       const apiMessages = messages
-        .filter((message) => message.role === "user")
-        .map((message) => ({
+        .filter((message: Message) => message.role === "user")
+        .map((message: Message) => ({
           role: message.role,
           content: message.content,
         }));
@@ -81,7 +71,7 @@ export function ChatInterface() {
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, assistantMessage]);
+      dispatch(addMessage(assistantMessage));
     } catch (error) {
       // Handle error
       const errorMessage: Message = {
@@ -91,28 +81,15 @@ export function ChatInterface() {
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, errorMessage]);
+      dispatch(addMessage(errorMessage));
       console.error("Error getting response:", error);
     } finally {
       setIsTyping(false);
     }
   };
 
-  // const handleAddContext = (title: string, content: string) => {
-  //   const newContext = {
-  //     id: Date.now().toString(),
-  //     title,
-  //     content,
-  //   };
-  //   setContexts((prev) => [...prev, newContext]);
-  //   setSelectedContext(newContext.id);
-  //   setIsAddContextModalOpen(false);
-  // };
-
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
-      <ChatHeader />
-
       <div className="flex-1 flex h-full overflow-hidden ">
         <div className=" flex-1 ">
           <ChatMessages messages={messages} isTyping={isTyping} />
@@ -120,7 +97,6 @@ export function ChatInterface() {
       </div>
 
       <ChatInput onSendMessage={handleSendMessage} isTyping={isTyping} />
-      {/* <AddContextModal isOpen={isAddContextModalOpen} onClose={() => setIsAddContextModalOpen(false)} /> */}
     </div>
   );
 }
