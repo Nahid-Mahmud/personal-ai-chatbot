@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { removeContext } from "@/redux/features/chatContextSlice";
 import { EditContextModal } from "./EditContextModal";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface ContextCardProps {
   id: string;
@@ -20,13 +21,22 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
   const dispatch = useDispatch();
 
   const handleEdit = (id: string) => {
-    console.log(id);
+    // console.log(id);
+    if (id === "1") {
+      toast.error("Default context cannot be edited.");
+      return;
+    }
+
     setSelectedContext(id);
     setIsEditContextModalOpen(true);
   };
 
   const handleDelete = (id: string) => {
-    console.log(id);
+    if (id === "1") {
+      toast.error("Default context cannot be deleted.");
+      return;
+    }
+    // console.log(id);
     dispatch(removeContext({ id }));
   };
 
@@ -36,7 +46,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
         <CardTitle className="text-xl font-medium">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-muted-foreground">{content}</p>
+        <p className="text-muted-foreground">{content?.length > 100 ? `${content.slice(0, 100)}...` : content}</p>
       </CardContent>
 
       <div className="absolute right-3 top-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -44,7 +54,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
           variant="ghost"
           size="icon"
           onClick={() => handleEdit(id)}
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background cursor-pointer"
           aria-label="Edit"
         >
           <Edit className="h-4 w-4" />
@@ -53,7 +63,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
           variant="ghost"
           size="icon"
           onClick={() => handleDelete(id)}
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground"
+          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground cursor-pointer"
           aria-label="Delete"
         >
           <Trash2 className="h-4 w-4" />

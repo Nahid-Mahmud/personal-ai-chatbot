@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils";
 import { Message } from "@/types/chat";
 
 import { User, Bot } from "lucide-react";
+import Markdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface ChatMessageItemProps {
   message: Message;
@@ -28,7 +32,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
         </div>
       )}
 
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-2 max-w-full overflow-hidden">
         <div className={cn("flex items-center gap-2", isUser ? "justify-end" : "justify-start")}>
           <div>
             <div className="font-semibold">{isUser ? "You" : "AI Assistant"}</div>
@@ -44,8 +48,45 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
           </div>
         </div>
 
-        <div className="prose prose-neutral dark:prose-invert">
-          <p className="leading-relaxed">{message.content}</p>
+        <div
+          className={cn("prose prose-neutral dark:prose-invert max-w-full", isUser ? "ml-auto text-right" : "mr-auto")}
+        >
+          <Markdown
+            components={{
+              code(props) {
+                const { children, className, ...rest } = props;
+                const match = /language-(\w+)/.exec(className || "");
+                return match ? (
+                  <SyntaxHighlighter
+                    {...(rest as any)}
+                    style={atomDark}
+                    language={match[1]}
+                    PreTag="div"
+                    className="rounded-md border overflow-auto max-w-full"
+                    customStyle={{ maxWidth: "100%" }}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code {...rest} className={cn(className, "break-words")}>
+                    {children}
+                  </code>
+                );
+              },
+              p: ({ children, ...props }) => (
+                <p {...props} className="break-words whitespace-pre-wrap">
+                  {children}
+                </p>
+              ),
+              pre: ({ children, ...props }) => (
+                <pre {...props} className="overflow-auto max-w-full">
+                  {children}
+                </pre>
+              ),
+            }}
+          >
+            {Array.isArray(message.content) ? message.content.join("") : message.content}
+          </Markdown>
         </div>
       </div>
 
