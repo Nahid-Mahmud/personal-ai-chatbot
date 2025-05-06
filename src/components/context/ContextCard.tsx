@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { removeContext } from "@/redux/features/chatContextSlice";
 import { EditContextModal } from "./EditContextModal";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface ContextCardProps {
   id: string;
@@ -21,13 +22,20 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
 
   const handleEdit = (id: string) => {
     // console.log(id);
+    if (id === "1") {
+      toast.error("Default context cannot be edited.");
+      return;
+    }
 
     setSelectedContext(id);
     setIsEditContextModalOpen(true);
   };
 
   const handleDelete = (id: string) => {
-    if (id === "1") return;
+    if (id === "1") {
+      toast.error("Default context cannot be deleted.");
+      return;
+    }
     // console.log(id);
     dispatch(removeContext({ id }));
   };
@@ -46,7 +54,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
           variant="ghost"
           size="icon"
           onClick={() => handleEdit(id)}
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background cursor-pointer"
           aria-label="Edit"
         >
           <Edit className="h-4 w-4" />
@@ -55,7 +63,7 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
           variant="ghost"
           size="icon"
           onClick={() => handleDelete(id)}
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground"
+          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground cursor-pointer"
           aria-label="Delete"
         >
           <Trash2 className="h-4 w-4" />

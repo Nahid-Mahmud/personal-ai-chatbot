@@ -9,6 +9,7 @@ import { editContext } from "@/redux/features/chatContextSlice";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface EditContextModalProps {
   isOpen: boolean;
@@ -45,6 +46,7 @@ export function EditContextModal({ isOpen, onClose, contextId }: EditContextModa
 
     // onAddContext(title, content);
     dispatch(editContext({ id: context?.id, title, content }));
+    toast.success("Context updated successfully!");
 
     resetForm();
     onClose();
@@ -73,7 +75,7 @@ export function EditContextModal({ isOpen, onClose, contextId }: EditContextModa
       <DialogContent className="sm:max-w-[500px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle className="text-xl">Add New Context</DialogTitle>
+            <DialogTitle className="text-xl">Edit Context</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
@@ -103,10 +105,12 @@ export function EditContextModal({ isOpen, onClose, contextId }: EditContextModa
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={handleClose} className="mr-2">
+            <Button type="button" variant="outline" onClick={handleClose} className="mr-2 cursor-pointer">
               Cancel
             </Button>
-            <Button type="submit">Add Context</Button>
+            <Button type="submit" className="cursor-pointer">
+              Update Context
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
