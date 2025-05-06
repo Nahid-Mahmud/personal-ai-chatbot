@@ -1,15 +1,14 @@
 "use client";
 
+import { Message } from "@/types/chat";
 import { useState } from "react";
 import { ChatHeader } from "./ChatHeader";
-import { ChatMessages } from "./ChatMessages";
-import { Message } from "@/types/chat";
-import { AddContextModal } from "./AddContextModal";
 import { ChatInput } from "./ChatInput";
+import { ChatMessages } from "./ChatMessages";
 
-import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { callOpenRouter } from "@/utils/callOpenRouter";
+import { useSelector } from "react-redux";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
@@ -24,7 +23,6 @@ export function ChatInterface() {
 
   // const [selectedContext, setSelectedContext] = useState<string | null>(null);
   // const [contexts, setContexts] = useState<{ id: string; title: string; content: string }[]>([]);
-  const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
 
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
   const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
@@ -113,7 +111,7 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden ">
-      <ChatHeader onAddContextClick={() => setIsAddContextModalOpen(true)} />
+      <ChatHeader />
 
       <div className="flex-1 flex h-full overflow-hidden ">
         <div className=" flex-1 ">
@@ -122,7 +120,7 @@ export function ChatInterface() {
       </div>
 
       <ChatInput onSendMessage={handleSendMessage} isTyping={isTyping} />
-      <AddContextModal isOpen={isAddContextModalOpen} onClose={() => setIsAddContextModalOpen(false)} />
+      {/* <AddContextModal isOpen={isAddContextModalOpen} onClose={() => setIsAddContextModalOpen(false)} /> */}
     </div>
   );
 }

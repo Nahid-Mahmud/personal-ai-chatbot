@@ -9,10 +9,11 @@ import { Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AddContextModal } from "./AddContextModal";
 
-interface ChatHeaderProps {
-  onAddContextClick: () => void;
-}
+// interface ChatHeaderProps {
+//   // onAddContextClick: () => void;
+// }
 
 interface AIModel {
   id: number;
@@ -38,7 +39,8 @@ const aiModels: AIModel[] = [
   },
 ];
 
-export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
+export function ChatHeader() {
+  const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -114,7 +116,7 @@ export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={onAddContextClick}
+              onClick={() => setIsAddContextModalOpen(true)}
               className="h-9 w-9 hidden md:inline-flex rounded-full transition-colors hover:bg-accent"
             >
               <PlusCircle className="h-5 w-5" />
@@ -135,13 +137,14 @@ export function ChatHeader({ onAddContextClick }: ChatHeaderProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={onAddContextClick}
+            onClick={() => setIsAddContextModalOpen(true)}
             className="h-9 w-9 md:hidden rounded-full transition-colors hover:bg-accent"
           >
             <PlusCircle className="h-5 w-5" />
           </Button>
         </div>
       </div>
+      <AddContextModal isOpen={isAddContextModalOpen} onClose={() => setIsAddContextModalOpen(false)} />
     </header>
   );
 }
