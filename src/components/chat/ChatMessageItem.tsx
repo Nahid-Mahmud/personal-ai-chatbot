@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils";
 import { Message } from "@/types/chat";
 
 import { User, Bot } from "lucide-react";
+import Markdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface ChatMessageItemProps {
   message: Message;
@@ -14,7 +18,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
     <div
       className={cn(
         "group relative flex items-start gap-4 md:gap-6",
-        isUser ? "justify-end text-right" : "justify-start text-left"
+        isUser ? "justify-end text-justify" : "justify-start text-left"
       )}
     >
       {!isUser && (
@@ -44,8 +48,32 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
           </div>
         </div>
 
-        <div className="prose prose-neutral dark:prose-invert">
-          <p className="leading-relaxed">{message.content}</p>
+        <div className={cn("prose prose-neutral dark:prose-invert", isUser ? "ml-auto" : "mr-auto")}>
+          <Markdown
+            components={{
+              code(props) {
+                const { children, className, ...rest } = props;
+                const match = /language-(\w+)/.exec(className || "");
+                return match ? (
+                  <SyntaxHighlighter
+                    {...(rest as any)}
+                    style={atomDark}
+                    language={match[1]}
+                    PreTag="div"
+                    className="rounded-md border"
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code {...rest} className={className}>
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {Array.isArray(message.content) ? message.content.join("") : message.content}
+          </Markdown>
         </div>
       </div>
 

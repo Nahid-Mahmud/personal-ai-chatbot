@@ -81,7 +81,7 @@ export function AddContextModal({ isOpen, onClose }: AddContextModalProps) {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Enter the context information..."
-                className="min-h-[150px] w-full"
+                className="min-h-[150px] max-h-[300px] w-full"
               />
             </div>
           </div>
