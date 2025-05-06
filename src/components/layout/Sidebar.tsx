@@ -1,6 +1,7 @@
 "use client";
 
-import { Home, MessageCircle, Plus } from "lucide-react";
+import { MessageCircle, Plus } from "lucide-react";
+import { HiOutlineLightningBolt } from "react-icons/hi";
 // import { useState } from "react";
 import NavItem from "./NavItem";
 
@@ -33,20 +34,20 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="space-y-2">
-          <NavItem icon={<Home size={20} />} label="Home" url="/" />
+          <NavItem icon={<HiOutlineLightningBolt size={20} />} label="Chat" url="/" />
           <NavItem icon={<MessageCircle size={20} />} label="Contexts" url="/contexts" />
-          <div>
+          {/* <div>
             <button
-              // onClick={() => setShowChats(!showChats)}
+              onClick={() => setShowChats(!showChats)}
               className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             >
-              {/* <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <MessageCircle size={20} />
                 <span className="text-sm font-medium">Chats</span>
-              </div> */}
-              {/* {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />} */}
+              </div>
+              {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
             </button>
-          </div>
+          </div> */}
         </nav>
 
         {/* Animated chat list (scrollable, bounded height) */}
