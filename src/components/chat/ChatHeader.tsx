@@ -9,7 +9,7 @@ import { Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddContextModal } from "./AddContextModal";
+import { AddContextModal } from "../context/AddContextModal";
 
 // interface ChatHeaderProps {
 //   // onAddContextClick: () => void;
