@@ -2,11 +2,11 @@
 import { cn } from "@/lib/utils";
 import { Message } from "@/types/chat";
 
-import { User, Bot, Copy, Check } from "lucide-react";
+import { Bot, Check, Copy, User } from "lucide-react";
+import { useState } from "react";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 interface ChatMessageItemProps {
@@ -16,7 +16,6 @@ interface ChatMessageItemProps {
 export function ChatMessageItem({ message }: ChatMessageItemProps) {
   const isUser = message.role === "user";
   const [copied, setCopied] = useState(false);
-  const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
 
   const handleCopy = async () => {
     if (isUser) return;
@@ -30,10 +29,10 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
     }
   };
 
-  const handleCopyCode = async (content: string, codeId: string) => {
+  const handleCopyCode = async (content: string) => {
     try {
       await navigator.clipboard.writeText(content);
-      setCopiedCodeId(codeId);
+      // setCopiedCodeId(codeId);
       toast.success("Code copied to clipboard!", {
         position: "top-right",
         autoClose: 2000,
@@ -43,7 +42,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
         draggable: true,
         progress: undefined,
       });
-      setTimeout(() => setCopiedCodeId(null), 2000);
+      // setTimeout(() => setCopiedCodeId(null), 2000);
     } catch (err) {
       console.error("Failed to copy code: ", err);
     }
@@ -117,9 +116,6 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                   // Handle HTML-like content by escaping angle brackets
                   const escapedContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-                  // Generate a unique ID for this code block
-                  const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
-
                   return match ? (
                     <div className="relative group/code">
                       <SyntaxHighlighter
@@ -137,11 +133,11 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                         {content}
                       </SyntaxHighlighter>
                       <button
-                        onClick={() => handleCopyCode(content, codeId)}
-                        className="absolute top-2 right-2 p-1.5 rounded-md bg-gray-800/80 hover:bg-gray-700/80 text-gray-300 hover:text-white transition-colors"
+                        onClick={() => handleCopyCode(content)}
+                        className="absolute top-2 right-2 p-1.5 rounded-md bg-gray-800/80 hover:bg-gray-700/80 text-gray-300 hover:text-white cursor-pointer"
                         title="Copy code"
                       >
-                        {copiedCodeId === codeId ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                        {<Copy className="h-4 w-4" />}
                       </button>
                     </div>
                   ) : (
