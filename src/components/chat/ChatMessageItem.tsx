@@ -7,6 +7,7 @@ import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface ChatMessageItemProps {
   message: Message;
@@ -33,6 +34,15 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
     try {
       await navigator.clipboard.writeText(content);
       setCopiedCodeId(codeId);
+      toast.success("Code copied to clipboard!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
       setTimeout(() => setCopiedCodeId(null), 2000);
     } catch (err) {
       console.error("Failed to copy code: ", err);
