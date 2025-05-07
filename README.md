@@ -12,7 +12,7 @@ A powerful Next.js-based AI chatbot application with support for multiple AI mod
 
 - **Frontend**: Next.js 15.3 with React 19
 - **Styling**: TailwindCSS 4.0
-- **State Management**: Redux with Redux Toolkit
+- **State Management**: Redux with Redux Persist
 - **UI Components**: ShadCn
 - **Code Highlighting**: React Syntax Highlighter
 - **Theme Management**: next-themes
@@ -102,14 +102,6 @@ The easiest way to deploy this Next.js app is to use the [Vercel Platform](https
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Learn More
-
-To learn more about the technologies used:
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [Redux Toolkit Documentation](https://redux-toolkit.js.org)
-- [TailwindCSS Documentation](https://tailwindcss.com/docs)
 
 ## Contributing
 
