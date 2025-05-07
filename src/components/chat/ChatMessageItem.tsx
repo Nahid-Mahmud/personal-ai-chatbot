@@ -15,6 +15,7 @@ interface ChatMessageItemProps {
 export function ChatMessageItem({ message }: ChatMessageItemProps) {
   const isUser = message.role === "user";
   const [copied, setCopied] = useState(false);
+  const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
 
   const handleCopy = async () => {
     if (isUser) return;
@@ -25,6 +26,16 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy message: ", err);
+    }
+  };
+
+  const handleCopyCode = async (content: string, codeId: string) => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedCodeId(codeId);
+      setTimeout(() => setCopiedCodeId(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy code: ", err);
     }
   };
 
@@ -96,21 +107,33 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                   // Handle HTML-like content by escaping angle brackets
                   const escapedContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+                  // Generate a unique ID for this code block
+                  const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
+
                   return match ? (
-                    <SyntaxHighlighter
-                      {...(rest as any)}
-                      style={atomDark}
-                      language={match[1]}
-                      PreTag="div"
-                      className="rounded-md border"
-                      customStyle={{
-                        maxWidth: "100%",
-                        overflowX: "auto",
-                        wordBreak: "break-word",
-                      }}
-                    >
-                      {content}
-                    </SyntaxHighlighter>
+                    <div className="relative group/code">
+                      <SyntaxHighlighter
+                        {...(rest as any)}
+                        style={atomDark}
+                        language={match[1]}
+                        PreTag="div"
+                        className="rounded-md border"
+                        customStyle={{
+                          maxWidth: "100%",
+                          overflowX: "auto",
+                          wordBreak: "break-word",
+                        }}
+                      >
+                        {content}
+                      </SyntaxHighlighter>
+                      <button
+                        onClick={() => handleCopyCode(content, codeId)}
+                        className="absolute top-2 right-2 p-1.5 rounded-md bg-gray-800/80 hover:bg-gray-700/80 text-gray-300 hover:text-white transition-colors"
+                        title="Copy code"
+                      >
+                        {copiedCodeId === codeId ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                      </button>
+                    </div>
                   ) : (
                     <code
                       {...rest}
