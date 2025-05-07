@@ -77,7 +77,8 @@ export function ChatInterface() {
       const errorMessage: Message = {
         id: Date.now().toString(),
         role: "system",
-        content: "Sorry, I encountered an error. Please try again later.",
+        // content: "Sorry, I encountered an error. Please try again later.",
+        content:"Todays Limit Reached. Please try again tomorrow.(Free Tier)",
         timestamp: new Date(),
       };
 
