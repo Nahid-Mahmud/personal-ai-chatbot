@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Trash2 } from "lucide-react";
+import { Copy, Edit, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
@@ -60,6 +60,20 @@ const ContextCard = ({ id, title, content }: ContextCardProps) => {
       </CardContent>
 
       <div className="absolute right-3 top-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        {/* copy button */}
+
+        <Button
+          onClick={() => {
+            navigator.clipboard.writeText(content);
+            toast.success(`Context copied to clipboard.(${title})`);
+          }}
+          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background cursor-pointer"
+          title="Copy code"
+          aria-label="Copy"
+        >
+          {<Copy className="h-4 w-4 text-black dark:text-white" />}
+        </Button>
+
         <Button
           variant="ghost"
           size="icon"
