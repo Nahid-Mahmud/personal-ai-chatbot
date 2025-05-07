@@ -60,6 +60,8 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
         <div
           className={cn(
             "prose prose-neutral dark:prose-invert max-w-none w-fit",
+            // Add better line height and spacing for the prose content
+            "prose-p:leading-relaxed prose-li:leading-relaxed prose-hr:my-6",
             isUser ? "ml-auto text-start border p-3 rounded-lg" : "mr-auto"
           )}
         >
@@ -90,7 +92,11 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                 );
               },
               p: ({ children, ...props }) => (
-                <p {...props} className="break-words whitespace-pre-wrap" style={{ overflowWrap: "anywhere" }}>
+                <p
+                  {...props}
+                  className="break-words whitespace-pre-wrap my-2"
+                  style={{ overflowWrap: "anywhere", lineHeight: "1.6" }}
+                >
                   {children}
                 </p>
               ),
@@ -98,6 +104,43 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                 <pre {...props} className="overflow-x-auto" style={{ maxWidth: "100%", whiteSpace: "pre-wrap" }}>
                   {children}
                 </pre>
+              ),
+              // Add specific styles for horizontal rules
+              hr: ({ ...props }) => <hr {...props} className="my-6 border-t border-gray-300 dark:border-gray-600" />,
+              // Fix for unordered lists (bullet points)
+              ul: ({ children, ...props }) => (
+                <ul {...props} className="list-disc pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
+                  {children}
+                </ul>
+              ),
+              // Add support for ordered lists (numbered lists)
+              ol: ({ children, ...props }) => (
+                <ol {...props} className="list-decimal pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
+                  {children}
+                </ol>
+              ),
+              li: ({ children, ...props }) => (
+                <li {...props} className="my-1 pl-1">
+                  {children}
+                </li>
+              ),
+              // strong
+
+              strong: ({ children, ...props }) => (
+                <strong {...props} className="font-semibold">
+                  {children}
+                </strong>
+              ),
+
+              // Add support for blockquotes
+              blockquote: ({ children, ...props }) => (
+                <blockquote
+                  {...props}
+                  className="border-l-4 pl-4 italic text-gray-600 dark:text-gray-400"
+                  style={{ borderColor: "var(--color-primary)" }}
+                >
+                  {children}
+                </blockquote>
               ),
             }}
           >
