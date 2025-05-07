@@ -128,3 +128,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+body {
+  /* Manrope font set */
+  font-family: "Manrope", sans-serif;
+}
