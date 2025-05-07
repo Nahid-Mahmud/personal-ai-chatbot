@@ -5,11 +5,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { selectContext } from "@/redux/features/chatContextSlice";
 import { setModel } from "@/redux/features/chatModelSlice";
 import { RootState } from "@/redux/store";
-import { Moon, PlusCircle, Sun } from "lucide-react";
+import { Github, Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddContextModal } from "../context/AddContextModal";
+import Link from "next/link";
 
 // interface ChatHeaderProps {
 //   // onAddContextClick: () => void;
@@ -75,6 +76,8 @@ export function ChatHeader() {
   const [mounted, setMounted] = useState(false);
 
   const [selectedModel, setSelectedModel] = useState<string>("");
+
+  // const router = useRouter();
 
   // get existing from redux store
   const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
@@ -154,15 +157,33 @@ export function ChatHeader() {
         </div>
 
         <div className="flex flex-col md:items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
-          >
-            {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            <span className="sr-only">Toggle theme</span>
-          </Button>
+          <div>
+            <Link
+              target="_blank"
+              href={"https://github.com/Nahid-Mahmud/personal-ai-chatbot"}
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="ghost"
+                // onClick={() => {
+                //   router.push("https://github.com/Nahid-Mahmud/personal-ai-chatbot");
+                // }}
+                size="icon"
+                className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
+              >
+                <Github />
+              </Button>
+            </Link>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
+            >
+              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </div>
           <Button
             variant="ghost"
             size="icon"
