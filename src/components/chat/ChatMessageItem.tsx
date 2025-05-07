@@ -17,7 +17,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
   return (
     <div
       className={cn(
-        "group relative flex items-start gap-4 md:gap-6",
+        "group relative flex items-start gap-4 md:gap-6 ",
         isUser ? "justify-end text-right" : "justify-start text-left"
       )}
     >
@@ -32,7 +32,14 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
         </div>
       )}
 
-      <div className="flex-1 space-y-2 max-w-full overflow-hidden">
+      {/* message container max width control */}
+
+      <div
+        className={cn(
+          "flex-1 space-y-2 overflow-hidden",
+          isUser ? "max-w-[80vw] md:max-w-[65vw] lg:max-w-[50vw] px-5" : "max-w-full"
+        )}
+      >
         <div className={cn("flex items-center gap-2", isUser ? "justify-end" : "justify-start")}>
           <div>
             <div className="font-semibold">{isUser ? "You" : "AI Assistant"}</div>
@@ -48,8 +55,13 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
           </div>
         </div>
 
+        {/* Message content control border and background */}
+
         <div
-          className={cn("prose prose-neutral dark:prose-invert max-w-full", isUser ? "ml-auto text-right" : "mr-auto")}
+          className={cn(
+            "prose prose-neutral dark:prose-invert max-w-none w-fit",
+            isUser ? "ml-auto text-start border p-3 rounded-lg" : "mr-auto"
+          )}
         >
           <Markdown
             components={{
@@ -62,30 +74,34 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
                     style={atomDark}
                     language={match[1]}
                     PreTag="div"
-                    className="rounded-md border overflow-auto max-w-full"
-                    customStyle={{ maxWidth: "100%" }}
+                    className="rounded-md border"
+                    customStyle={{
+                      maxWidth: "100%",
+                      overflowX: "auto",
+                      wordBreak: "break-word",
+                    }}
                   >
                     {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
                 ) : (
-                  <code {...rest} className={cn(className, "break-words")}>
+                  <code {...rest} className={cn(className, "break-all")}>
                     {children}
                   </code>
                 );
               },
               p: ({ children, ...props }) => (
-                <p {...props} className="break-words whitespace-pre-wrap">
+                <p {...props} className="break-words whitespace-pre-wrap" style={{ overflowWrap: "anywhere" }}>
                   {children}
                 </p>
               ),
               pre: ({ children, ...props }) => (
-                <pre {...props} className="overflow-auto max-w-full">
+                <pre {...props} className="overflow-x-auto" style={{ maxWidth: "100%", whiteSpace: "pre-wrap" }}>
                   {children}
                 </pre>
               ),
             }}
           >
-            {Array.isArray(message.content) ? message.content.join("") : message.content}
+            {message.content}
           </Markdown>
         </div>
       </div>
