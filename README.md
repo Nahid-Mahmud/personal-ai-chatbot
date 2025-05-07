@@ -13,7 +13,7 @@ A powerful Next.js-based AI chatbot application with support for multiple AI mod
 - **Frontend**: Next.js 15.3 with React 19
 - **Styling**: TailwindCSS 4.0
 - **State Management**: Redux with Redux Toolkit
-- **UI Components**: Custom components built with Radix UI primitives
+- **UI Components**: ShadCn
 - **Code Highlighting**: React Syntax Highlighter
 - **Theme Management**: next-themes
 - **Notifications**: react-toastify
@@ -33,6 +33,42 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+
+
+# Environment Configuration
+
+This project requires some environment variables to be set up for proper functionality, particularly for API connectivity.
+
+## Required Environment Variables
+
+Create a .env.local file in your project root with the following variables:
+
+```bash
+# Base URL for backend API (just put anything for now)
+NEXT_PUBLIC_BASE_URL="your-backend-url"
+
+# OpenRouter API Key for AI model access
+# Get your API key from https://openrouter.ai/
+NEXT_PUBLIC_OPENROUTER_API_KEY="your-openrouter-api-key"
+```
+
+## Getting an OpenRouter API Key
+
+1. Visit [OpenRouter](https://openrouter.ai/)
+2. Create an account or sign in
+3. Navigate to your API settings
+4. Generate a new API key
+5. Copy the key to your .env.local file
+
+## Important Security Note
+
+- Never commit your .env.local file to version control
+- The .env.local file is already included in .gitignore
+- For production deployment, set these environment variables in your hosting platform (Vercel, Netlify, etc.)
+
+## Model Availability
+
+The available AI models in the application are provided through OpenRouter's API. Different models may have different usage tiers and costs. Refer to the OpenRouter documentation for current model availability and pricing.
 
 ## Project Structure
 
