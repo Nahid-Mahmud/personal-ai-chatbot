@@ -2,10 +2,11 @@
 import { cn } from "@/lib/utils";
 import { Message } from "@/types/chat";
 
-import { User, Bot } from "lucide-react";
+import { User, Bot, Copy, Check } from "lucide-react";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { useState } from "react";
 
 interface ChatMessageItemProps {
   message: Message;
@@ -13,6 +14,19 @@ interface ChatMessageItemProps {
 
 export function ChatMessageItem({ message }: ChatMessageItemProps) {
   const isUser = message.role === "user";
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    if (isUser) return;
+
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy message: ", err);
+    }
+  };
 
   return (
     <div
@@ -59,6 +73,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
 
         <div
           className={cn(
+            "relative",
             isUser
               ? "ml-auto text-start border p-3 rounded-lg"
               : "prose prose-neutral dark:prose-invert max-w-none w-fit mr-auto prose-p:leading-relaxed prose-li:leading-relaxed prose-hr:my-6"
@@ -223,6 +238,17 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
             </Markdown>
           )}
         </div>
+        {/* Copy button for AI messages */}
+        {!isUser && (
+          <button
+            onClick={handleCopy}
+            className=" top-2 right-2 flex items-center cursor-pointer gap-3.5 bg-accent-foreground/10 px-2 py-1 rounded-md  hover:bg-gray-100 dark:hover:bg-gray-800 transition-opacity"
+            title="Copy message"
+            aria-label="Copy message"
+          >
+            Copy {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4 text-gray-500" />}
+          </button>
+        )}
       </div>
 
       {isUser && (
