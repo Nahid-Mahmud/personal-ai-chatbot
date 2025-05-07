@@ -59,93 +59,169 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
 
         <div
           className={cn(
-            "prose prose-neutral dark:prose-invert max-w-none w-fit",
-            // Add better line height and spacing for the prose content
-            "prose-p:leading-relaxed prose-li:leading-relaxed prose-hr:my-6",
-            isUser ? "ml-auto text-start border p-3 rounded-lg" : "mr-auto"
+            isUser
+              ? "ml-auto text-start border p-3 rounded-lg"
+              : "prose prose-neutral dark:prose-invert max-w-none w-fit mr-auto prose-p:leading-relaxed prose-li:leading-relaxed prose-hr:my-6"
           )}
         >
-          <Markdown
-            components={{
-              code(props) {
-                const { children, className, ...rest } = props;
-                const match = /language-(\w+)/.exec(className || "");
-                return match ? (
-                  <SyntaxHighlighter
-                    {...(rest as any)}
-                    style={atomDark}
-                    language={match[1]}
-                    PreTag="div"
-                    className="rounded-md border"
-                    customStyle={{
-                      maxWidth: "100%",
-                      overflowX: "auto",
-                      wordBreak: "break-word",
-                    }}
+          {isUser ? (
+            // Simple display for user messages
+            <div className="break-words whitespace-pre-wrap" style={{ lineHeight: "1.6" }}>
+              {message.content}
+            </div>
+          ) : (
+            // Rich markdown for AI messages
+            <Markdown
+              components={{
+                code(props) {
+                  const { children, className, ...rest } = props;
+                  const match = /language-(\w+)/.exec(className || "");
+                  const content = String(children).replace(/\n$/, "");
+
+                  // Handle HTML-like content by escaping angle brackets
+                  const escapedContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                  return match ? (
+                    <SyntaxHighlighter
+                      {...(rest as any)}
+                      style={atomDark}
+                      language={match[1]}
+                      PreTag="div"
+                      className="rounded-md border"
+                      customStyle={{
+                        maxWidth: "100%",
+                        overflowX: "auto",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {content}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code
+                      {...rest}
+                      className={cn(className, "break-all px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded")}
+                    >
+                      {escapedContent}
+                    </code>
+                  );
+                },
+                p: ({ children, ...props }) => (
+                  <p
+                    {...props}
+                    className="break-words whitespace-pre-wrap my-2"
+                    style={{ overflowWrap: "anywhere", lineHeight: "1.6" }}
                   >
-                    {String(children).replace(/\n$/, "")}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code {...rest} className={cn(className, "break-all")}>
                     {children}
-                  </code>
-                );
-              },
-              p: ({ children, ...props }) => (
-                <p
-                  {...props}
-                  className="break-words whitespace-pre-wrap my-2"
-                  style={{ overflowWrap: "anywhere", lineHeight: "1.6" }}
-                >
-                  {children}
-                </p>
-              ),
-              pre: ({ children, ...props }) => (
-                <pre {...props} className="overflow-x-auto" style={{ maxWidth: "100%", whiteSpace: "pre-wrap" }}>
-                  {children}
-                </pre>
-              ),
-              // Add specific styles for horizontal rules
-              hr: ({ ...props }) => <hr {...props} className="my-6 border-t border-gray-300 dark:border-gray-600" />,
-              // Fix for unordered lists (bullet points)
-              ul: ({ children, ...props }) => (
-                <ul {...props} className="list-disc pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
-                  {children}
-                </ul>
-              ),
-              // Add support for ordered lists (numbered lists)
-              ol: ({ children, ...props }) => (
-                <ol {...props} className="list-decimal pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
-                  {children}
-                </ol>
-              ),
-              li: ({ children, ...props }) => (
-                <li {...props} className="my-1 pl-1">
-                  {children}
-                </li>
-              ),
-              // strong
-
-              strong: ({ children, ...props }) => (
-                <strong {...props} className="font-semibold">
-                  {children}
-                </strong>
-              ),
-
-              // Add support for blockquotes
-              blockquote: ({ children, ...props }) => (
-                <blockquote
-                  {...props}
-                  className="border-l-4 pl-4 italic text-gray-600 dark:text-gray-400"
-                  style={{ borderColor: "var(--color-primary)" }}
-                >
-                  {children}
-                </blockquote>
-              ),
-            }}
-          >
-            {message.content}
-          </Markdown>
+                  </p>
+                ),
+                pre: ({ children, ...props }) => (
+                  <pre {...props} className="overflow-x-auto" style={{ maxWidth: "100%", whiteSpace: "pre-wrap" }}>
+                    {children}
+                  </pre>
+                ),
+                // Add specific styles for horizontal rules
+                hr: ({ ...props }) => <hr {...props} className="my-6 border-t border-gray-300 dark:border-gray-600" />,
+                // Fix for unordered lists (bullet points)
+                ul: ({ children, ...props }) => (
+                  <ul {...props} className="list-disc pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
+                    {children}
+                  </ul>
+                ),
+                // Add support for ordered lists (numbered lists)
+                ol: ({ children, ...props }) => (
+                  <ol {...props} className="list-decimal pl-5 my-4" style={{ paddingLeft: "1.5rem" }}>
+                    {children}
+                  </ol>
+                ),
+                li: ({ children, ...props }) => (
+                  <li {...props} className="my-1 pl-1">
+                    {children}
+                  </li>
+                ),
+                // Strong (bold) text styling
+                strong: ({ children, ...props }) => (
+                  <strong {...props} className="font-bold">
+                    {children}
+                  </strong>
+                ),
+                // Emphasis (italic) text styling
+                em: ({ children, ...props }) => (
+                  <em {...props} className="italic">
+                    {children}
+                  </em>
+                ),
+                // Add support for blockquotes
+                blockquote: ({ children, ...props }) => (
+                  <blockquote
+                    {...props}
+                    className="border-l-4 pl-4 italic text-gray-600 dark:text-gray-400"
+                    style={{ borderColor: "var(--color-primary)" }}
+                  >
+                    {children}
+                  </blockquote>
+                ),
+                // Add support for headings with proper spacing
+                h1: ({ children, ...props }) => (
+                  <h1 {...props} className="text-2xl font-bold my-4">
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children, ...props }) => (
+                  <h2 {...props} className="text-xl font-bold my-4">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children, ...props }) => (
+                  <h3 {...props} className="text-lg font-bold my-3">
+                    {children}
+                  </h3>
+                ),
+                h4: ({ children, ...props }) => (
+                  <h4 {...props} className="text-base font-semibold my-3">
+                    {children}
+                  </h4>
+                ),
+                // Table styling
+                table: ({ children, ...props }) => (
+                  <div className="overflow-x-auto my-4">
+                    <table {...props} className="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+                      {children}
+                    </table>
+                  </div>
+                ),
+                thead: ({ children, ...props }) => (
+                  <thead {...props} className="bg-gray-100 dark:bg-gray-800">
+                    {children}
+                  </thead>
+                ),
+                tbody: ({ children, ...props }) => (
+                  <tbody {...props} className="divide-y divide-gray-200 dark:divide-gray-800">
+                    {children}
+                  </tbody>
+                ),
+                tr: ({ children, ...props }) => (
+                  <tr {...props} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    {children}
+                  </tr>
+                ),
+                th: ({ children, ...props }) => (
+                  <th
+                    {...props}
+                    className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                  >
+                    {children}
+                  </th>
+                ),
+                td: ({ children, ...props }) => (
+                  <td {...props} className="px-3 py-2 text-sm">
+                    {children}
+                  </td>
+                ),
+              }}
+            >
+              {message.content}
+            </Markdown>
+          )}
         </div>
       </div>
 
