@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { selectContext } from "@/redux/features/chatContextSlice";
 import { setModel } from "@/redux/features/chatModelSlice";
 import { RootState } from "@/redux/store";
-import { Github, Moon, PlusCircle, Sun } from "lucide-react";
+import { Github, Linkedin, Moon, PlusCircle, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -158,6 +158,15 @@ export function ChatHeader() {
 
         <div className="flex flex-col md:items-center gap-2">
           <div>
+            <Link target="_blank" href={"https://www.linkedin.com/in/md-nahid-mahmud/"} rel="noopener noreferrer">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
+              >
+                <Linkedin />
+              </Button>
+            </Link>
             <Link
               target="_blank"
               href={"https://github.com/Nahid-Mahmud/personal-ai-chatbot"}
@@ -165,9 +174,6 @@ export function ChatHeader() {
             >
               <Button
                 variant="ghost"
-                // onClick={() => {
-                //   router.push("https://github.com/Nahid-Mahmud/personal-ai-chatbot");
-                // }}
                 size="icon"
                 className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
               >
