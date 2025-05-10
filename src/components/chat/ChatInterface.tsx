@@ -9,10 +9,13 @@ import { RootState } from "@/redux/store";
 import { callOpenRouter } from "@/utils/callOpenRouter";
 import { useSelector, useDispatch } from "react-redux";
 import { addMessage } from "@/redux/features/chatSlice";
+import { callOllama } from "@/utils/callOllamaLocalAI";
 
 export function ChatInterface() {
   const dispatch = useDispatch();
   const [isTyping, setIsTyping] = useState(false);
+
+  const useLocalAi = true;
 
   // Get messages from Redux store
   const messages = useSelector((state: RootState) => state.chat.messages);
@@ -27,7 +30,15 @@ export function ChatInterface() {
       id: Date.now().toString(),
       role: "user",
       content,
-      timestamp: new Date(),
+      timestamp: new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }),
     };
 
     dispatch(addMessage(userMessage));
@@ -62,24 +73,56 @@ export function ChatInterface() {
       });
 
       // Call API
-      const responseContent = await callOpenRouter(apiMessages, selectedModel);
+      let responseContent;
+
+      if (useLocalAi) {
+        // Use local Ollama instance
+        responseContent = await callOllama(
+          apiMessages,
+          "qwen2.5-coder:3b", // You can replace with a default local model or use a selector
+          selectedContextFromReduxStore
+        );
+
+        // console.log("Response from local AI:", responseContent);
+        // return;
+      } else {
+        // Use OpenRouter
+        responseContent = await callOpenRouter(apiMessages, selectedModel);
+      }
 
       const assistantMessage: Message = {
         id: Date.now().toString(),
         role: "system",
         content: responseContent,
-        timestamp: new Date(),
+        timestamp: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }),
       };
 
       dispatch(addMessage(assistantMessage));
     } catch (error) {
+      console.log(error);
       // Handle error
       const errorMessage: Message = {
         id: Date.now().toString(),
         role: "system",
         // content: "Sorry, I encountered an error. Please try again later.",
-        content:"Todays Limit Reached. Please try again tomorrow.(Free Tier)",
-        timestamp: new Date(),
+        content: "Todays Limit Reached. Please try again tomorrow.(Free Tier)",
+        timestamp: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }),
       };
 
       dispatch(addMessage(errorMessage));

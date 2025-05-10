@@ -13,6 +13,9 @@ interface ChatMessagesProps {
 export function ChatMessages({ messages, isTyping }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  console.log(messages);
+  // return;
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);

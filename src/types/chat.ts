@@ -2,7 +2,7 @@ export interface Message {
   id: string;
   role: "user" | "system";
   content: string;
-  timestamp: Date;
+  timestamp: string;
 }
 
 export interface Context {
