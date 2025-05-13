@@ -83,6 +83,7 @@ export function ChatHeader() {
   const selectedModelFromReduxStore = useSelector((state: RootState) => state.model.model);
   const contextsFormReduxStore = useSelector((state: RootState) => state?.context?.contexts);
   const selectedContextFromReduxStore = useSelector((state: RootState) => state?.context?.selectedContext);
+  const useLocalAi = useSelector((state: RootState) => state.localAi.localAi);
 
   const dispatch = useDispatch();
 
@@ -118,7 +119,7 @@ export function ChatHeader() {
     <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10">
       <div className="flex md:items-center md:justify-between py-4 container">
         <div className="flex ml-10 flex-col gap-5 md:flex-row md:items-center ">
-          <Select value={selectedModelFromReduxStore || ""} onValueChange={handleModelChange}>
+          <Select disabled={useLocalAi} value={selectedModelFromReduxStore || ""} onValueChange={handleModelChange}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
