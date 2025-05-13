@@ -10,12 +10,14 @@ import { callOpenRouter } from "@/utils/callOpenRouter";
 import { useSelector, useDispatch } from "react-redux";
 import { addMessage } from "@/redux/features/chatSlice";
 import { callOllama } from "@/utils/callOllamaLocalAI";
+import { toast } from "react-toastify";
 
 export function ChatInterface() {
   const dispatch = useDispatch();
   const [isTyping, setIsTyping] = useState(false);
 
-  const useLocalAi = true;
+  const useLocalAi = useSelector((state: RootState) => state.localAi.localAi);
+  const localAiModel = useSelector((state: RootState) => state.localAi.localAiModel);
 
   // Get messages from Redux store
   const messages = useSelector((state: RootState) => state.chat.messages);
@@ -25,6 +27,11 @@ export function ChatInterface() {
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
+
+    if (useLocalAi && localAiModel === "") {
+      toast.error("Please select a local model");
+      return;
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -76,10 +83,14 @@ export function ChatInterface() {
       let responseContent;
 
       if (useLocalAi) {
+        if (localAiModel === "") {
+          toast.error("Please select a local model");
+          return;
+        }
         // Use local Ollama instance
         responseContent = await callOllama(
           apiMessages,
-          "qwen2.5-coder:3b", // You can replace with a default local model or use a selector
+          localAiModel, // You can replace with a default local model or use a selector
           selectedContextFromReduxStore
         );
 
