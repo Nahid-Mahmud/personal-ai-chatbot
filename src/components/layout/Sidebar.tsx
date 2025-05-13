@@ -41,7 +41,7 @@ export default function Sidebar() {
         setError(error);
       }
     };
-    getOllamaModels();
+    // getOllamaModels();
   }, []);
 
   return (
