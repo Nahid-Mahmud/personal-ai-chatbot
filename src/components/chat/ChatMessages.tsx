@@ -13,7 +13,7 @@ interface ChatMessagesProps {
 export function ChatMessages({ messages, isTyping }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  console.log(messages);
+  // console.log(messages);
   // return;
 
   useEffect(() => {

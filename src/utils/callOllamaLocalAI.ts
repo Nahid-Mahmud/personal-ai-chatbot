@@ -21,6 +21,7 @@ export async function callOllama(
         messages: formattedMessages,
         stream: false,
         context,
+        // keep_alive: "20m",
       }),
     });
 
@@ -30,6 +31,9 @@ export async function callOllama(
     }
 
     const data = await response.json();
+    // console.log(Math.ceil(data?.eval_duration / 1000000000));
+
+    // 1000000000
 
     // Explicitly handle created_at by converting it to a string if it exists
     if (data.created_at) {

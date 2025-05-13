@@ -266,6 +266,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
               {message.content}
             </Markdown>
           )}
+          {/* {<p>{message.executionTime}</p>} */}
         </div>
         {/* Copy button for AI messages */}
         {!isUser && (
