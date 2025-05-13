@@ -2,35 +2,40 @@
 
 import { MessageCircle, Plus } from "lucide-react";
 import { HiOutlineLightningBolt } from "react-icons/hi";
+import { AiOutlineRobot } from "react-icons/ai";
 // import { useState } from "react";
 import NavItem from "./NavItem";
 import { useDispatch } from "react-redux";
 import { resetChat } from "@/redux/features/chatSlice";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 export default function Sidebar() {
+  const [localChatAIList, setLocalChatAILis] = useState([]);
+  const [error, setError] = useState<unknown | null>(null);
+
   const dispatch = useDispatch();
 
   const pathname = usePathname();
 
-  // const [showChats, setShowChats] = useState(false);
-
-  // const recentChats = [
-  //   "Project AI Bot",
-  //   "Meeting Notes",
-  //   "Code Helper",
-  //   "Job Prep",
-  //   "GPT-4 Playground",
-  //   "Client Feedback",
-  //   "Daily Summary",
-  //   "Recipe Generator",
-  //   "Travel Planner",
-  //   "Workout Buddy",
-  //   "Language Tutor",
-  //   "Book Recommendations",
-  //   "Music Playlist",
-  //   "Movie Suggestions",
-  // ];
+  useEffect(() => {
+    const getOllamaModels = async () => {
+      try {
+        const res = await fetch("http://localhost:11434/api/tags");
+        if (!res.ok) {
+          throw new Error("Failed to fetch models");
+        }
+        const data = await res.json();
+        setLocalChatAILis(data?.models || []);
+        console.log(data);
+      } catch (error: unknown) {
+        console.error("Error fetching models:", error);
+        setError(error);
+      }
+    };
+    getOllamaModels();
+  }, []);
 
   return (
     <div className="h-screen w-64 flex flex-col bg-white dark:bg-[#0A0A0A] text-black dark:text-white border-r border-gray-100 dark:border-gray-700 shadow-lg">
@@ -43,44 +48,51 @@ export default function Sidebar() {
         <nav className="space-y-2">
           <NavItem icon={<HiOutlineLightningBolt size={20} />} label="Chat" url="/" />
           <NavItem icon={<MessageCircle size={20} />} label="Contexts" url="/contexts" />
-          {/* <div>
-            <button
-              onClick={() => setShowChats(!showChats)}
-              className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-            >
-              <div className="flex items-center gap-3">
-                <MessageCircle size={20} />
-                <span className="text-sm font-medium">Chats</span>
-              </div>
-              {showChats ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-            </button>
-          </div> */}
-        </nav>
+          <div>
+            {/* select model */}
+            <div className="flex gap-3 p-2 items-center mb-2">
+              <AiOutlineRobot />
+              <span className="">Select Local Model</span>
+            </div>
+            <div className="pb-2 px-2">
+              <Select disabled={error ? true : false} onValueChange={(value) => console.log(value)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder={error ? `Ollama not available` : `Select an Ai Model`} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Models</SelectLabel>
 
-        {/* Animated chat list (scrollable, bounded height) */}
-        {/* <AnimatePresence>
-          {
-            <motion.div
-              key="chatList"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-2 flex-grow overflow-hidden"
-            >
-              <div className="h-full overflow-y-auto ml-4 pr-1 space-y-1 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-700">
-                {recentChats.map((chat, index) => (
-                  <button
-                    key={index}
-                    className="w-full text-left text-sm p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                  >
-                    {chat}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          }
-        </AnimatePresence> */}
+                    {localChatAIList.map(
+                      (
+                        model: {
+                          name: string;
+                          model: string;
+                          modified_at: string;
+                          size: number;
+                          digest: string;
+                          details: {
+                            parent_model: string;
+                            format: string;
+                            family: string;
+                            families: string[];
+                            parameter_size: string;
+                            quantization_level: string;
+                          };
+                        },
+                        index: number
+                      ) => (
+                        <SelectItem key={index} value={model?.model}>
+                          {model?.name}
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </nav>
       </div>
 
       {/* Footer - always visible */}
