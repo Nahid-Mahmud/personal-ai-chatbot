@@ -141,9 +141,28 @@ export function ChatInterface() {
     } finally {
       setIsTyping(false);
 
-      const audio = new Audio("/notification.mp3");
-      audio.play();
+      // const audio = new Audio("/notification.mp3");
+      // audio.play().catch((error) => {
+      //   console.error("Audio playback failed:", error);
+      //   // Consider showing a notification to the user about enabling audio permissions
+      // });
+      enableSound();
     }
+  };
+
+  // Add somewhere in your component
+  const enableSound = () => {
+    const audio = new Audio("/notification.mp3");
+
+    audio.volume = 1;
+    audio
+      .play()
+      .then(() => {
+        console.log("Audio enabled successfully");
+      })
+      .catch((err) => {
+        console.error("Could not enable audio:", err);
+      });
   };
 
   return (
