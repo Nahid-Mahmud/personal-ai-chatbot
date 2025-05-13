@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { MessageCircle, Plus } from "lucide-react";
@@ -55,7 +54,7 @@ export default function Sidebar() {
         <nav className="space-y-2">
           <NavItem icon={<HiOutlineLightningBolt size={20} />} label="Chat" url="/" />
           <NavItem icon={<MessageCircle size={20} />} label="Contexts" url="/contexts" />
-          {/* <div>
+          <div>
             <div className="flex items-center gap-2 p-2 mb-2">
               <Checkbox
                 checked={localModeState}
@@ -120,7 +119,7 @@ export default function Sidebar() {
                 </SelectContent>
               </Select>
             </div>
-          </div> */}
+          </div>
         </nav>
       </div>
 
