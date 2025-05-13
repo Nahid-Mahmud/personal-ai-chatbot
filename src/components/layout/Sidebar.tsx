@@ -6,10 +6,12 @@ import { HiOutlineLightningBolt } from "react-icons/hi";
 import { resetChat } from "@/redux/features/chatSlice";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Checkbox } from "../ui/checkbox";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 import NavItem from "./NavItem";
+import { RootState } from "@/redux/store";
+import { setLocalAi, setLocalAiModel } from "@/redux/features/localAISlice";
 
 export default function Sidebar() {
   const [localChatAIList, setLocalChatAILis] = useState([]);
@@ -18,6 +20,10 @@ export default function Sidebar() {
   const dispatch = useDispatch();
 
   const pathname = usePathname();
+
+  const localModeState = useSelector((state: RootState) => state.localAi.localAi);
+  const localAiModel = useSelector((state: RootState) => state.localAi.localAiModel);
+  console.log(localAiModel);
 
   useEffect(() => {
     const getOllamaModels = async () => {
@@ -28,7 +34,7 @@ export default function Sidebar() {
         }
         const data = await res.json();
         setLocalChatAILis(data?.models || []);
-        console.log(data);
+        // console.log(data);
       } catch (error: unknown) {
         console.error("Error fetching models:", error);
         setError(error);
@@ -55,7 +61,13 @@ export default function Sidebar() {
               <span className="">Select Local Model</span>
             </div> */}
             <div className="flex items-center gap-2 p-2 mb-2">
-              <Checkbox id="terms" />
+              <Checkbox
+                checked={localModeState}
+                onCheckedChange={() => {
+                  dispatch(setLocalAi(!localModeState));
+                }}
+                id="terms"
+              />
               <label
                 htmlFor="terms"
                 className=" leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -65,8 +77,9 @@ export default function Sidebar() {
             </div>
             <div className="pb-2 px-2">
               <Select
-                disabled={(error ? true : false) || localChatAIList.length === 0}
-                onValueChange={(value) => console.log(value)}
+                disabled={(error ? true : false) || localChatAIList.length === 0 || !localModeState}
+                onValueChange={(value) => dispatch(setLocalAiModel(value))}
+                value={localAiModel}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue
