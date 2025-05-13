@@ -2,14 +2,14 @@
 
 import { MessageCircle, Plus } from "lucide-react";
 import { HiOutlineLightningBolt } from "react-icons/hi";
-import { AiOutlineRobot } from "react-icons/ai";
 // import { useState } from "react";
-import NavItem from "./NavItem";
-import { useDispatch } from "react-redux";
 import { resetChat } from "@/redux/features/chatSlice";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Checkbox } from "../ui/checkbox";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import NavItem from "./NavItem";
 
 export default function Sidebar() {
   const [localChatAIList, setLocalChatAILis] = useState([]);
@@ -50,14 +50,34 @@ export default function Sidebar() {
           <NavItem icon={<MessageCircle size={20} />} label="Contexts" url="/contexts" />
           <div>
             {/* select model */}
-            <div className="flex gap-3 p-2 items-center mb-2">
+            {/* <div className="flex gap-3 p-2 items-center mb-2">
               <AiOutlineRobot />
               <span className="">Select Local Model</span>
+            </div> */}
+            <div className="flex items-center gap-2 p-2 mb-2">
+              <Checkbox id="terms" />
+              <label
+                htmlFor="terms"
+                className=" leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Select Local Model
+              </label>
             </div>
             <div className="pb-2 px-2">
-              <Select disabled={error ? true : false} onValueChange={(value) => console.log(value)}>
+              <Select
+                disabled={(error ? true : false) || localChatAIList.length === 0}
+                onValueChange={(value) => console.log(value)}
+              >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder={error ? `Ollama not available` : `Select an Ai Model`} />
+                  <SelectValue
+                    placeholder={
+                      error
+                        ? `Ollama not available`
+                        : localChatAIList.length === 0
+                        ? "No local model available"
+                        : "Select an Ai Model"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
