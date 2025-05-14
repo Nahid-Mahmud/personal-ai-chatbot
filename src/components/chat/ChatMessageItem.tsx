@@ -8,7 +8,7 @@ import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { toast } from "react-toastify";
-
+import remarkGfm from "remark-gfm";
 interface ChatMessageItemProps {
   message: Message;
 }
@@ -107,6 +107,7 @@ export function ChatMessageItem({ message }: ChatMessageItemProps) {
           ) : (
             // Rich markdown for AI messages
             <Markdown
+              remarkPlugins={[remarkGfm]}
               components={{
                 code(props) {
                   const { children, className, ...rest } = props;
