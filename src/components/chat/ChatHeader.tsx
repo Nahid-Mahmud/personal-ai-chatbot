@@ -28,11 +28,11 @@ const aiModels: AIModel[] = [
     name: "Meta: Llama 3.2 3B Instruct",
     model: "meta-llama/llama-3.2-3b-instruct:free",
   },
-  {
-    id: 2,
-    name: "Google: LearnLM 1.5 Pro Experimental",
-    model: "google/learnlm-1.5-pro-experimental:free",
-  },
+  // {
+  //   id: 2,
+  //   name: "Google: LearnLM 1.5 Pro Experimental",
+  //   model: "google/learnlm-1.5-pro-experimental:free",
+  // },
   {
     id: 3,
     name: "Qwen2.5 7B Instruct",
