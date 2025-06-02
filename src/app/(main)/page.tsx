@@ -1,6 +1,8 @@
 import { FeatureCard } from "@/components/home/FeatureCard";
+import HomePageHeader from "@/components/home/HomePageHeader";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle, Settings, Shield, Users, Zap } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   {
@@ -43,28 +45,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-slate-900">AI Chat Pro</span>
-          </div>
-          <nav className="hidden md:flex items-center space-x-6">
-            <a href="#features" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Features
-            </a>
-            <a href="#about" className="text-slate-600 hover:text-slate-900 transition-colors">
-              About
-            </a>
-            <Button variant="outline" size="sm">
-              Sign In
-            </Button>
-            <Button size="sm">Get Started</Button>
-          </nav>
-        </div>
-      </header>
+      <HomePageHeader />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
@@ -81,12 +62,11 @@ export default function HomePage() {
             Built for professionals who demand flexibility and control.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-3">
-              Start Chatting Now
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-3">
-              View Demo
-            </Button>
+            <Link href={"/chat"} prefetch={true}>
+              <Button size="lg" className="text-lg px-8 py-3">
+                Start Chatting Now
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
