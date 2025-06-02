@@ -27,10 +27,12 @@ export default function HomePage() {
             Built for professionals who demand flexibility and control.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={"/chat"} prefetch={true}>
-              <Button size="lg" className="text-lg px-8 py-3">
-                Start Chatting Now
-              </Button>
+            <Link
+              href={"/chat"}
+              prefetch={true}
+              className="bg-green-900 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition-colors text-lg font-semibold"
+            >
+              Start Chatting Now
             </Link>
           </div>
         </div>
