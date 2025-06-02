@@ -1,6 +1,4 @@
 import { FeatureCard } from "@/components/home/FeatureCard";
-import Footer from "@/components/home/Footer";
-import HomePageHeader from "@/components/home/HomePageHeader";
 import { Button } from "@/components/ui/button";
 import { features } from "@/data/features";
 import { Shield, Users, Zap } from "lucide-react";
@@ -8,10 +6,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <HomePageHeader />
-
+    <div>
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
@@ -121,7 +116,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
