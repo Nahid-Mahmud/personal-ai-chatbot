@@ -1,6 +1,4 @@
 import { MessageCircle } from "lucide-react";
-import React from "react";
-import { Button } from "../ui/button";
 import Link from "next/link";
 
 function HomePageHeader() {
@@ -20,9 +18,7 @@ function HomePageHeader() {
           <a href="#about" className="text-slate-600 hover:text-slate-900 transition-colors">
             About
           </a>
-          <Button variant="outline" size="sm">
-            Sign In
-          </Button>
+
           <Link
             prefetch={true}
             href={"/chat"}
