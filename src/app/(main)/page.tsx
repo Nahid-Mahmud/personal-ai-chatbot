@@ -1,6 +1,5 @@
-import { FeatureCard } from "@/components/home/FeatureCard";
+import Features from "@/components/home/Features";
 import { Button } from "@/components/ui/button";
-import { features } from "@/data/features";
 import { Shield, Users, Zap } from "lucide-react";
 import Link from "next/link";
 
@@ -34,29 +33,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="container mx-auto px-4 pb-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Powerful Features</h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Everything you need for intelligent AI conversations in one streamlined platform
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* AI-Powered Chat */}
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-              bulletPoints={feature.bulletPoints}
-              gradientFrom={feature.gradientFrom}
-              gradientTo={feature.gradientTo}
-            />
-          ))}
-        </div>
-      </section>
+      <Features />
 
       {/* Benefits Section */}
       <section className="bg-white py-20">
