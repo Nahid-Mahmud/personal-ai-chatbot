@@ -1,5 +1,7 @@
+"use client";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
+import ThemeChange from "../shared/ThemeChange";
 
 function HomePageHeader() {
   return (
@@ -26,6 +28,7 @@ function HomePageHeader() {
           >
             Get Started
           </Link>
+          <ThemeChange />
         </nav>
       </div>
     </header>

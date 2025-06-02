@@ -5,12 +5,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { selectContext } from "@/redux/features/chatContextSlice";
 import { setModel } from "@/redux/features/chatModelSlice";
 import { RootState } from "@/redux/store";
-import { Github, Linkedin, Moon, PlusCircle, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Github, Linkedin, PlusCircle } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddContextModal } from "../context/AddContextModal";
-import Link from "next/link";
+import ThemeChange from "../shared/ThemeChange";
 
 // interface ChatHeaderProps {
 //   // onAddContextClick: () => void;
@@ -72,7 +72,7 @@ const aiModels: AIModel[] = [
 
 export function ChatHeader() {
   const [isAddContextModalOpen, setIsAddContextModalOpen] = useState(false);
-  const { setTheme, resolvedTheme } = useTheme();
+
   const [mounted, setMounted] = useState(false);
 
   const [selectedModel, setSelectedModel] = useState<string>("");
@@ -181,15 +181,7 @@ export function ChatHeader() {
                 <Github />
               </Button>
             </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="h-9 w-9 flex-1 md:flex-none rounded-full transition-colors hover:bg-accent"
-            >
-              {resolvedTheme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              <span className="sr-only">Toggle theme</span>
-            </Button>
+            <ThemeChange />
           </div>
           <Button
             variant="ghost"
