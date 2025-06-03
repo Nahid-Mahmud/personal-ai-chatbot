@@ -41,17 +41,18 @@ function HomePageHeader() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link
-            href="#features"
-            className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
-          >
-            Features
-          </Link>
+          {" "}
           <Link
             href="#about"
             className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
           >
             About
+          </Link>
+          <Link
+            href="#features"
+            className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+          >
+            Features
           </Link>
           <Link
             prefetch={true}
@@ -81,19 +82,20 @@ function HomePageHeader() {
         >
           <nav className="flex flex-col space-y-4">
             <Link
-              href="#features"
-              className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Features
-            </Link>
-            <Link
               href="#about"
               className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               About
             </Link>
+            <Link
+              href="#features"
+              className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Features
+            </Link>
+
             <Link
               prefetch={true}
               href={"/chat"}
