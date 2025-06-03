@@ -1,43 +1,32 @@
 // import { features } from "@/data/features";
 import { Brain, MessageCircle, Settings } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-export const features = [
-  {
-    icon: MessageCircle,
-    title: "AI-Powered Chat",
-    description: "Real-time conversation interface with intelligent responses",
-    bulletPoints: [
-      "Instant message streaming",
-      "Natural conversation flow",
-      "Message history & search",
-      "Export conversations",
-    ],
-    gradientFrom: "blue-500",
-    gradientTo: "blue-600",
-  },
-  {
-    icon: Brain,
-    title: "Multiple AI Models",
-    description: "Choose from various AI models through OpenRouter integration",
-    bulletPoints: [
-      "GPT-4, Claude, Gemini & more",
-      "Easy model switching",
-      "Cost-effective pricing",
-      "Performance optimization",
-    ],
-    gradientFrom: "purple-500",
-    gradientTo: "purple-600",
-  },
-  {
-    icon: Settings,
-    title: "Context Management",
-    description: "Create and manage custom conversation contexts",
-    bulletPoints: ["Custom context creation", "Context templates", "Easy editing & deletion", "Role-based responses"],
-    gradientFrom: "green-500",
-    gradientTo: "green-600",
-  },
-];
 
+//  {
+//     id: 1,
+//     name: "Meta: Llama 3.2 3B Instruct",
+//     model: "meta-llama/llama-3.2-3b-instruct:free",
+//   },
+//   // {
+//   //   id: 2,
+//   //   name: "Google: LearnLM 1.5 Pro Experimental",
+//   //   model: "google/learnlm-1.5-pro-experimental:free",
+//   // },
+//   {
+//     id: 3,
+//     name: "Qwen2.5 7B Instruct",
+//     model: "qwen/qwen-2.5-7b-instruct:free",
+//   },
+//   {
+//     id: 4,
+//     name: "DeepSeek: R1 Distill Llama 70B",
+//     model: "deepseek/deepseek-r1-distill-llama-70b:free",
+//   },
+//   {
+//     id: 5,
+//     name: "Qwen: Qwen3 0.6B",
+//     model: "qwen/qwen3-0.6b-04-28:free",
+//   },
 export default function Features() {
   return (
     <section id="features" className="container mx-auto px-4 py-20">
@@ -64,8 +53,10 @@ export default function Features() {
             <ul className="text-slate-600 space-y-2">
               <li>• Instant message streaming</li>
               <li>• Natural conversation flow</li>
-              <li>• Message history & search</li>
-              <li>• Export conversations</li>
+              {/* <li>• Message history & search</li>
+              <li>• Export conversations</li> */}
+              <li>• Copy Code Snippets</li>
+              <li>• Code Syntax Highlighting</li>
             </ul>
           </CardContent>
         </Card>
@@ -83,7 +74,7 @@ export default function Features() {
           </CardHeader>
           <CardContent className="text-center">
             <ul className="text-slate-600 space-y-2">
-              <li>• GPT-4, Claude, Gemini & more</li>
+              <li>• Meta Llama, Qwen, DeepSeek and more </li>
               <li>• Easy model switching</li>
               <li>• Cost-effective pricing</li>
               <li>• Performance optimization</li>

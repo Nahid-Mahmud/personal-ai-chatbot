@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="py-12 text-black bg-white dark:bg-[#0B192C] dark:text-white border-t border-slate-200 dark:border-slate-800">
+    <footer className="py-12 text-black bg-white dark:bg-[#080b14] dark:text-white border-t border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
@@ -11,7 +11,7 @@ function Footer() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <MessageCircle className="w-5 h-5 " />
               </div>
-              <span className="text-xl font-bold">AI Chat Pro</span>
+              <span className="text-xl font-bold">AIO Chat</span>
             </div>
             <p className="">Your intelligent AI assistant for professional conversations and productivity.</p>
           </div>

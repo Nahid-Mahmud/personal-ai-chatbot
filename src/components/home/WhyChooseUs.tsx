@@ -3,10 +3,10 @@ import React from "react";
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-white py-20 dark:bg-[#0B192C] dark:text-white  dark:border-slate-800">
+    <section className="bg-white py-20 dark:bg-[#080b14] dark:text-white  dark:border-slate-800">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Why Choose AI Chat Pro?</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">Why Choose AIO Chat ?</h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Built for professionals who need reliable, flexible AI assistance
           </p>
@@ -26,7 +26,7 @@ export default function WhyChooseUs() {
               <Shield className="w-6 h-6 text-purple-600" />
             </div>
             <h3 className="text-xl font-semibold text-slate-900 mb-2">Secure & Private</h3>
-            <p className="text-slate-600">Your conversations are encrypted and never stored without permission</p>
+            <p className="text-slate-600">Your conversations and context are locally stored.</p>
           </div>
 
           <div className="text-center">
