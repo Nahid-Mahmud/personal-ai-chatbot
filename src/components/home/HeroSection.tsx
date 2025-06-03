@@ -5,10 +5,10 @@ function HeroSection() {
   return (
     <section className="container mx-auto px-4 py-20 text-center">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight dark:text-white ">
           Your Personal <GradientText text="AI Assistant" />
         </h1>
-        <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed dark:text-slate-400">
           Experience intelligent conversations with multiple AI models, custom contexts, and real-time responses. Built
           for professionals who demand flexibility and control.
         </p>

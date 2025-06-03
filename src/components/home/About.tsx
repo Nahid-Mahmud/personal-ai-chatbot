@@ -9,22 +9,24 @@ function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">About AIO Chat</h2>
-              <p className="text-xl text-slate-600">The ALL-in-One solution for intelligent AI conversations</p>
+              <h2 className="text-4xl font-bold text-slate-900 mb-4 dark:text-white">About AIO Chat</h2>
+              <p className="text-xl text-slate-600 dark:text-slate-400">
+                The ALL-in-One solution for intelligent AI conversations
+              </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-3xl font-bold text-slate-900 mb-6">
+                <h3 className="text-3xl font-bold text-slate-900 mb-6 dark:text-slate-200">
                   One Platform, <GradientText text="Endless Possibilities" />
                   {/* <span className="text-blue-600">Endless Possibilities</span> */}
                 </h3>
-                <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                <p className="text-lg text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
                   AIO Chat revolutionizes how you interact with artificial intelligence by bringing together multiple AI
                   models, customizable contexts, and powerful conversation management into a single, streamlined
                   platform.
                 </p>
-                <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                <p className="text-lg text-slate-600 mb-6 dark:text-slate-400 leading-relaxed">
                   Whether you&npsb;re a developer, researcher, content creator, or business professional, AIO Chat
                   adapts to your workflow and amplifies your productivity with intelligent, context-aware conversations.
                 </p>
@@ -34,8 +36,10 @@ function About() {
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900">Universal AI Access</h4>
-                      <p className="text-slate-600">Connect to multiple AI models through a single interface</p>
+                      <h4 className="font-semibold text-slate-900 dark:text-slate-100">Universal AI Access</h4>
+                      <p className="text-slate-600 dark:text-slate-400">
+                        Connect to multiple AI models through a single interface
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -43,8 +47,10 @@ function About() {
                       <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900">Smart Context Management</h4>
-                      <p className="text-slate-600">Create custom contexts that shape AI responses to your needs</p>
+                      <h4 className="font-semibold text-slate-900 dark:text-slate-100">Smart Context Management</h4>
+                      <p className="text-slate-600 dark:text-slate-400">
+                        Create custom contexts that shape AI responses to your needs
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -52,22 +58,24 @@ function About() {
                       <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900">Seamless Experience</h4>
-                      <p className="text-slate-600">Intuitive design that makes AI accessible to everyone</p>
+                      <h4 className="font-semibold text-slate-900 dark:text-slate-100">Seamless Experience</h4>
+                      <p className="text-slate-600 dark:text-slate-400">
+                        Intuitive design that makes AI accessible to everyone
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="relative">
-                <div className="bg-white rounded-2xl shadow-2xl p-8 border">
+                <div className="bg-white dark:bg-[#09122C] rounded-2xl shadow-2xl p-8 border">
                   <div className="flex items-center space-x-3 mb-6">
                     <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
                       <MessageCircle className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900">AIO Chat</h4>
-                      <p className="text-sm text-slate-500">ALL-in-One AI Platform</p>
+                      <h4 className="font-bold text-slate-900 dark:text-slate-100">AIO Chat</h4>
+                      <p className="text-sm text-slate-500 dark:text-slate-200 ">ALL-in-One AI Platform</p>
                     </div>
                   </div>
 
