@@ -1,15 +1,12 @@
 import Link from "next/link";
+import GradientText from "../providers/GradientText";
 
 function HeroSection() {
   return (
     <section className="container mx-auto px-4 py-20 text-center">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-          Your Personal
-          <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
-            {" "}
-            AI Assistant
-          </span>
+          Your Personal <GradientText text="AI Assistant" />
         </h1>
         <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
           Experience intelligent conversations with multiple AI models, custom contexts, and real-time responses. Built

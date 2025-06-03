@@ -1,5 +1,6 @@
 import { Badge, Brain, MessageCircle, Settings } from "lucide-react";
 import React from "react";
+import GradientText from "../providers/GradientText";
 
 function About() {
   return (
@@ -15,7 +16,8 @@ function About() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-6">
-                  One Platform, <span className="text-blue-600">Endless Possibilities</span>
+                  One Platform, <GradientText text="Endless Possibilities" />
+                  {/* <span className="text-blue-600">Endless Possibilities</span> */}
                 </h3>
                 <p className="text-lg text-slate-600 mb-6 leading-relaxed">
                   AIO Chat revolutionizes how you interact with artificial intelligence by bringing together multiple AI

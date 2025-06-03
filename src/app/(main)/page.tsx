@@ -21,9 +21,6 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <CtaSection />
-
-      {/* Footer */}
-      {/* <Footer /> */}
     </div>
   );
 }
