@@ -21,6 +21,26 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aio.chat.nahid-mahmud.xyz"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      notranslate: false,
+      noarchive: false,
+      nosnippet: false,
+    },
+  },
   title: "AIO Chat - All-in-One AI Conversation Platform",
   description:
     "AIO Chat is the ultimate platform for intelligent AI conversations, combining multiple AI models, customizable contexts, and powerful conversation management into one seamless experience.",
