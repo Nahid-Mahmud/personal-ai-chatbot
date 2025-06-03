@@ -86,10 +86,10 @@ function About() {
                         <span className="text-sm font-medium text-slate-700">Multiple AI Models</span>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        <Badge className="text-xs">GPT-4</Badge>
-                        <Badge className="text-xs">Claude</Badge>
-                        <Badge className="text-xs">Gemini</Badge>
-                        <Badge className="text-xs">+More</Badge>
+                        <Badge className="text-xs dark:text-blue-950">GPT-4</Badge>
+                        <Badge className="text-xs dark:text-blue-950">Claude</Badge>
+                        <Badge className="text-xs dark:text-blue-950">Gemini</Badge>
+                        <Badge className="text-xs dark:text-blue-950">+More</Badge>
                       </div>
                     </div>
 

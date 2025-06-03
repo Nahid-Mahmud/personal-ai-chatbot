@@ -50,7 +50,7 @@ export default function Features() {
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <ul className="text-slate-600 space-y-2">
+            <ul className="text-slate-600 space-y-2 dark:text-slate-400">
               <li>• Instant message streaming</li>
               <li>• Natural conversation flow</li>
               {/* <li>• Message history & search</li>
@@ -73,7 +73,7 @@ export default function Features() {
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <ul className="text-slate-600 space-y-2">
+            <ul className="text-slate-600 space-y-2 dark:text-slate-400">
               <li>• Meta Llama, Qwen, DeepSeek and more </li>
               <li>• Easy model switching</li>
               <li>• Cost-effective pricing</li>
@@ -92,7 +92,7 @@ export default function Features() {
             <CardDescription className="text-base">Create and manage custom conversation contexts</CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <ul className="text-slate-600 space-y-2">
+            <ul className="text-slate-600 space-y-2 dark:text-slate-400">
               <li>• Custom context creation</li>
               <li>• Context templates</li>
               <li>• Easy editing & deletion</li>
