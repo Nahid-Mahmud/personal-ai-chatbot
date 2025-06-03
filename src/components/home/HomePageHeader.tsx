@@ -1,8 +1,8 @@
 "use client";
-import { MessageCircle, Menu, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import ThemeChange from "../shared/ThemeChange";
-import { useState, useEffect, useRef } from "react";
 
 function HomePageHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -44,7 +44,7 @@ function HomePageHeader() {
           {" "}
           <Link
             href="#about"
-            className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+            className="text-slate-600 cursor-pointer hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
           >
             About
           </Link>
