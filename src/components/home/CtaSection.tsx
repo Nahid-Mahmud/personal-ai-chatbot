@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function CtaSection() {
   return (
@@ -9,14 +9,19 @@ export default function CtaSection() {
           Join thousands of professionals using AIO Chat for smarter conversations
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-lg px-8 py-3">
+          <Link
+            prefetch={true}
+            href={"/chat"}
+            className="bg-green-900 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors inline-block text-center"
+          >
             Get Started Free
-          </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-3">
+          </Link>
+
+          {/* <Button variant="outline" size="lg" className="text-lg px-8 py-3">
             Schedule Demo
-          </Button>
+          </Button> */}
         </div>
-        <p className="text-sm text-slate-500 mt-4">No credit card required • 14-day free trial • Cancel anytime</p>
+        <p className="text-sm text-slate-500 mt-4">No credit card required • 100% Free</p>
       </div>
     </section>
   );

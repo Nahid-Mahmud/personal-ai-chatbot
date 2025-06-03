@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import React from "react";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -20,24 +20,20 @@ function Footer() {
             <h4 className="font-semibold mb-4">Product</h4>
             <ul className="space-y-2 ">
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Features
-                </a>
+                </Link>
               </li>
+
               <li>
-                <a href="#" className=" transition-colors">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   API
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Documentation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -46,24 +42,24 @@ function Footer() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 ">
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -72,24 +68,24 @@ function Footer() {
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 ">
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Community
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className=" transition-colors">
+                <Link href="#" className=" transition-colors">
                   Terms
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
