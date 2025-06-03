@@ -4,7 +4,7 @@ import React from "react";
 function About() {
   return (
     <div>
-      <section id="about" className="bg-white py-20">
+      <section id="about" className="bg-white dark:bg-[#0B192C] py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">

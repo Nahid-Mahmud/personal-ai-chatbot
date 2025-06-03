@@ -5,19 +5,25 @@ import ThemeChange from "../shared/ThemeChange";
 
 function HomePageHeader() {
   return (
-    <header className="border-b bg-white/80 backdrop-blur-sm">
+    <header className="border-b bg-white/80 dark:bg-black backdrop-blur-sm dark:border-gray-800">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-800 rounded-lg flex items-center justify-center">
             <MessageCircle className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-slate-900">AIO Chat</span>
+          <span className="text-xl font-bold text-slate-900 dark:text-white">AIO Chat</span>
         </div>
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#features" className="text-slate-600 hover:text-slate-900 transition-colors">
+          <Link
+            href="#features"
+            className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+          >
             Features
           </Link>
-          <a href="#about" className="text-slate-600 hover:text-slate-900 transition-colors">
+          <a
+            href="#about"
+            className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+          >
             About
           </a>
 
