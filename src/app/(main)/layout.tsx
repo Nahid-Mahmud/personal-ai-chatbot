@@ -17,7 +17,7 @@ export const metadata = {
     siteName: "AIO Chat",
     images: [
       {
-        url: "./aio-cropped.png",
+        url: "/aio-cropped.png",
         width: 1200,
         height: 630,
         alt: "AIO Chat - All-in-One AI Conversation Platform",
@@ -31,7 +31,8 @@ export const metadata = {
     title: "AIO Chat - All-in-One AI Conversation Platform",
     description:
       "AIO Chat is the ultimate platform for intelligent AI conversations, combining multiple AI models, customizable contexts, and powerful conversation management into one seamless experience.",
-    images: ["./aio-cropped.png"],
+    images: ["/aio-cropped.png"],
+    creator: "@nm_nahid01",
   },
 };
 
