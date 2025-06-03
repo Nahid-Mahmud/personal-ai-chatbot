@@ -31,8 +31,8 @@ export default function Features() {
   return (
     <section id="features" className="container mx-auto px-4 py-20">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-slate-900 mb-4">Powerful Features</h2>
-        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">Powerful Features</h2>
+        <p className="text-xl text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
           Everything you need for intelligent AI conversations in one streamlined platform
         </p>
       </div>

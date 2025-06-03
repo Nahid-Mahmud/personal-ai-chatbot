@@ -114,8 +114,8 @@ function About() {
             </div>
 
             <div className="mt-16 text-center">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h3>
-              <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 dark:text-slate-100">Our Mission</h3>
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 To democratize access to artificial intelligence by creating an intuitive, powerful platform that brings
                 together the best AI models and tools in one place. We believe that everyone should have access to
                 cutting-edge AI technology, regardless of their technical background.
