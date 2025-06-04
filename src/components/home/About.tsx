@@ -70,7 +70,7 @@ function About() {
               <div className="relative">
                 <div className="bg-white dark:bg-[#09122C] rounded-2xl shadow-2xl p-8 border">
                   <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-900 rounded-xl flex items-center justify-center">
                       <MessageCircle className="w-6 h-6 text-white" />
                     </div>
                     <div>
