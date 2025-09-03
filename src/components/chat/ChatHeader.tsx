@@ -33,20 +33,26 @@ const aiModels: AIModel[] = [
   //   name: "Google: LearnLM 1.5 Pro Experimental",
   //   model: "google/learnlm-1.5-pro-experimental:free",
   // },
-  {
-    id: 3,
-    name: "Qwen2.5 7B Instruct",
-    model: "qwen/qwen-2.5-7b-instruct:free",
-  },
+  // {
+  //   id: 3,
+  //   name: "Qwen2.5 7B Instruct",
+  //   model: "qwen/qwen-2.5-7b-instruct:free",
+  // },
   {
     id: 4,
-    name: "DeepSeek: R1 Distill Llama 70B",
-    model: "deepseek/deepseek-r1-distill-llama-70b:free",
+    name: " DeepSeek V3.1",
+    model: "deepseek/deepseek-chat-v3.1:free",
+  },
+
+  {
+    id: 55,
+    name: "Mistral: Devstral Small 2505",
+    model: "mistralai/devstral-small-2505:free",
   },
   {
     id: 5,
-    name: "Qwen: Qwen3 0.6B",
-    model: "qwen/qwen3-0.6b-04-28:free",
+    name: "Microsoft: MAI DS R1",
+    model: "microsoft/mai-ds-r1:free",
   },
   // {
   //   id: 6,
