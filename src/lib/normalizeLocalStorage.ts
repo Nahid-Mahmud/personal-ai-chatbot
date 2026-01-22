@@ -3,6 +3,7 @@
 
 if (typeof window === "undefined") {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const gs: any = globalThis as any;
     if (typeof gs.localStorage !== "undefined") {
       const ls = gs.localStorage;
@@ -19,7 +20,5 @@ if (typeof window === "undefined") {
         };
       }
     }
-  } catch (e) {
-    // Silently ignore any errors while trying to patch global.
-  }
+  } catch {}
 }
