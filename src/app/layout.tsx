@@ -1,3 +1,6 @@
+// Normalize broken server global localStorage before other imports
+import "@/lib/normalizeLocalStorage";
+
 import ReduxProvider from "@/components/providers/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import type { Metadata } from "next";

@@ -25,8 +25,8 @@ interface AIModel {
 const aiModels: AIModel[] = [
   {
     id: 1,
-    name: "Meta: Llama 3.2 3B Instruct",
-    model: "meta-llama/llama-3.2-3b-instruct:free",
+    name: "Liquid LFM 2.5 1.2B Instruct",
+    model: "liquid/lfm-2.5-1.2b-instruct:free",
   },
   // {
   //   id: 2,
@@ -40,19 +40,19 @@ const aiModels: AIModel[] = [
   // },
   {
     id: 4,
-    name: " DeepSeek V3.1",
-    model: "deepseek/deepseek-chat-v3.1:free",
+    name: " Arcee: Trinity Mini",
+    model: "arcee-ai/trinity-mini:free",
   },
 
   {
     id: 55,
-    name: "Mistral: Devstral Small 2505",
-    model: "mistralai/devstral-small-2505:free",
+    name: "Nvidia: NeMoTron 3 Nano 30B A3B",
+    model: "nvidia/nemotron-3-nano-30b-a3b:free",
   },
   {
     id: 5,
-    name: "Microsoft: MAI DS R1",
-    model: "microsoft/mai-ds-r1:free",
+    name: "Qwen2.5 VL 7B Instruct",
+    model: "qwen/qwen-2.5-vl-7b-instruct:free",
   },
   // {
   //   id: 6,
